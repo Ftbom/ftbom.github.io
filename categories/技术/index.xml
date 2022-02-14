@@ -1,0 +1,217 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>技术 - 分类 - Ftbom&#39;s Blog</title>
+        <link>https://ftbom.github.io/categories/%E6%8A%80%E6%9C%AF/</link>
+        <description>技术 - 分类 - Ftbom&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
+            <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Mon, 14 Feb 2022 19:53:10 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/categories/%E6%8A%80%E6%9C%AF/" rel="self" type="application/rss+xml" /><item>
+    <title>在Android设备上安装JupyterLab</title>
+    <link>https://ftbom.github.io/install-jupyterlab-in-android/</link>
+    <pubDate>Mon, 14 Feb 2022 19:53:10 &#43;0800</pubDate><author>
+        <name>Ftbom</name>
+    </author><guid>https://ftbom.github.io/install-jupyterlab-in-android/</guid>
+    <description><![CDATA[<h2 id="jupyterlab简介" class="headerLink">
+    <a href="#jupyterlab%e7%ae%80%e4%bb%8b" class="header-mark"></a>JupyterLab简介</h2><p><a href="https://jupyterlab.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer">JupyterLab</a>是一个基于Web的集成开发环境。在JupyterLab中可以通过安装kernel来运行各种代码，还可以在代码块之间插入Markdown文本，同时JupyterLab也提供了终端管理的功能。</p>
+<p>Android设备易于携带，JupyterLab基于Web易于分享，通过在Android设备上安装JupyterLab，可以获得一个强大又便捷的集成开发环境。</p>
+<p>虽然可以通过<a href="https://play.google.com/store/apps/details?id=ru.iiec.pydroid3" target="_blank" rel="noopener noreffer">Pydroid3</a>方便地安装JupyterLab，但为了充分使用其强大的功能，推荐使用<a href="https://termux.com/" target="_blank" rel="noopener noreffer">Termux</a>或<a href="https://userland.tech/" target="_blank" rel="noopener noreffer">UserLAnd</a>来安装JupyterLab。</p>
+<h2 id="在termux中安装jupyterlab" class="headerLink">
+    <a href="#%e5%9c%a8termux%e4%b8%ad%e5%ae%89%e8%a3%85jupyterlab" class="header-mark"></a>在Termux中安装JupyterLab</h2><p>Termux是Android系统上的一个高级终端模拟器，可以运行很多Linux系统的软件。通过Termux，在Android系统上可以获得类似于Linux系统的使用体验。Termux的使用教程推荐国光大佬的<a href="https://www.sqlsec.com/2018/05/termux.html" target="_blank" rel="noopener noreffer">Termux 高级终端安装使用配置教程</a>。</p>
+<h3 id="termux初始化" class="headerLink">
+    <a href="#termux%e5%88%9d%e5%a7%8b%e5%8c%96" class="header-mark"></a>Termux初始化</h3><p>Termux第一次启动时需要联网进行初始化。</p>
+<blockquote>
+<p>如果初始化失败请尝试使用代理</p>
+</blockquote>
+<p>初始化完成后输入以下代码获取存储空间访问权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">termux-setup-storage
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="安装python和各项依赖" class="headerLink">
+    <a href="#%e5%ae%89%e8%a3%85python%e5%92%8c%e5%90%84%e9%a1%b9%e4%be%9d%e8%b5%96" class="header-mark"></a>安装Python和各项依赖</h3><p>安装Python：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pkg install python
+</code></pre></td></tr></table>
+</div>
+</div><p>使用pkg命令安装rrj包时会先更新软件源再进行安装。</p>
+<p>安装所需依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pkg install clang python fftw libzmq freetype libpng pkg-config libcrypt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="安装jupyterlab并运行" class="headerLink">
+    <a href="#%e5%ae%89%e8%a3%85jupyterlab%e5%b9%b6%e8%bf%90%e8%a1%8c" class="header-mark"></a>安装JupyterLab并运行</h3><p>在Termux中安装的Python已经带有pip，通过以下命令安装JupyterLab：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install jupyterlab
+</code></pre></td></tr></table>
+</div>
+</div><p>运行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter-lab
+</code></pre></td></tr></table>
+</div>
+</div><p>运行Notebook：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter notebook
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="在userland中安装jupyterlab" class="headerLink">
+    <a href="#%e5%9c%a8userland%e4%b8%ad%e5%ae%89%e8%a3%85jupyterlab" class="header-mark"></a>在UserLAnd中安装JupyterLab</h2><p>UserLAnd使Linux发行版和Linux软件可以在Android设备上运行，而无需root权限。UserLAnd提供多种Linux发行版和软件供用户安装，推荐安装Ubuntu系统，使用SSH作为连接方式。</p>
+<h3 id="userland安装ubuntu" class="headerLink">
+    <a href="#userland%e5%ae%89%e8%a3%85ubuntu" class="header-mark"></a>UserLAnd安装Ubuntu</h3><p>连接上网络后选择Ubuntu系统，设置用户名、密码和VNC密码并选择一种连接方式，然后下载即可。</p>
+<blockquote>
+<p>如果安装失败请尝试使用代理</p>
+</blockquote>
+<h3 id="安装python3和各项依赖" class="headerLink">
+    <a href="#%e5%ae%89%e8%a3%85python3%e5%92%8c%e5%90%84%e9%a1%b9%e4%be%9d%e8%b5%96" class="header-mark"></a>安装Python3和各项依赖</h3><p>安装完成后使用选择的连接方式登入系统，进行Python和依赖的安装。</p>
+<p>首先更新软件源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt update
+</code></pre></td></tr></table>
+</div>
+</div><p>安装Python3：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install python3
+</code></pre></td></tr></table>
+</div>
+</div><p>安装所需依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install python3-dev python3-pip python3-pyrsistent
+</code></pre></td></tr></table>
+</div>
+</div><p>将JupyterLab的安装目录添加到环境变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#将username更改为设置的用户名
+export PATH=$PATH:/home/username/.local/bin
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="安装jupyterlab并运行-1" class="headerLink">
+    <a href="#%e5%ae%89%e8%a3%85jupyterlab%e5%b9%b6%e8%bf%90%e8%a1%8c-1" class="header-mark"></a>安装JupyterLab并运行</h3><p>安装JupyterLab：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install jupyterlab
+</code></pre></td></tr></table>
+</div>
+</div><p>运行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter-lab
+</code></pre></td></tr></table>
+</div>
+</div><p>运行Notebook：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter notebook
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置jupyterlab允许其他设备访问" class="headerLink">
+    <a href="#%e9%85%8d%e7%bd%aejupyterlab%e5%85%81%e8%ae%b8%e5%85%b6%e4%bb%96%e8%ae%be%e5%a4%87%e8%ae%bf%e9%97%ae" class="header-mark"></a>配置JupyterLab允许其他设备访问</h2><p>JupyterLab默认不允许其他设备访问，可通过更改配置文件来允许其他设备访问。</p>
+<p>查看.jupyter目录下的文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ls ~/.jupyter
+</code></pre></td></tr></table>
+</div>
+</div><p>由于jupyter_notebook_config.json文件的优先级高于其他配置文件，若存在jupyter_notebook_config.json文件则删除此文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rm ~/.jupyter/jupyter_notebook_config.json
+</code></pre></td></tr></table>
+</div>
+</div><p>生成配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter notebook --generate-config
+</code></pre></td></tr></table>
+</div>
+</div><p>配置文件名为jupyter_notebook_config.py。</p>
+<p>当JupyterLab能被其他设备访问时，最好为JupyterLab设置访问密码。设置密码需要生成密码的散列值，这样即使获取到了散列值，也几乎无法逆向获取到密码。</p>
+<p>打开Python交互界面，运行以下代码并按提示输入密码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">notebook.auth</span> <span class="kn">import</span> <span class="n">passwd</span>
+<span class="n">passwd</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出结果即为密码的散列值。</p>
+<p>打开jupyter_notebook_config.py，对如下选项进行设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span>  <span class="c1"># 允许访问JupyterLab的IP，*表示任意IP</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;生成的密码散列值&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">8888</span> <span class="c1"># 使用的端口，默认8888</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># 不使用token</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>设置好后就可以通过<code>http://ip:port</code>访问JupyterLab了。</p>
+]]></description>
+</item></channel>
+</rss>
