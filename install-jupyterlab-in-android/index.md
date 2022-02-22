@@ -32,7 +32,7 @@ termux-setup-storage
 pkg install python
 ```
 
-使用pkg命令安装rrj包时会先更新软件源再进行安装。
+使用pkg命令安装软件包时会先更新软件源再进行安装。
 
 安装所需依赖：
 

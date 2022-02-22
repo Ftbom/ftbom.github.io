@@ -40,7 +40,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pkg install python
 </code></pre></td></tr></table>
 </div>
-</div><p>使用pkg命令安装rrj包时会先更新软件源再进行安装。</p>
+</div><p>使用pkg命令安装软件包时会先更新软件源再进行安装。</p>
 <p>安装所需依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
