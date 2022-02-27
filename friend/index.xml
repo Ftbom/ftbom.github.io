@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Friends on Ftbom&#39;s Blog</title>
+    <link>https://ftbom.github.io/friend/</link>
+    <description>Recent content in Friends on Ftbom&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
+    <webMaster>lz490070@gmail.com (Ftbom)</webMaster><atom:link href="https://ftbom.github.io/friend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://ftbom.github.io/friend/friend/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>lz490070@gmail.com (Ftbom)</author>
+      <guid>https://ftbom.github.io/friend/friend/</guid>
+      <description>Zhiim&amp;#39;s Blog “迷途的羔羊”||“时间，记忆与自我欺骗”</description>
+    </item>
+    
+  </channel>
+</rss>
