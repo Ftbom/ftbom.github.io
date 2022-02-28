@@ -2,7 +2,7 @@
     <channel>
         <title>Ftbom&#39;s Blog</title>
         <link>https://ftbom.github.io/</link>
-        <description>Ftbom&#39;s Blog</description>
+        <description>记录与分享</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
             <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Fri, 25 Feb 2022 20:33:38 &#43;0800</lastBuildDate>
             <atom:link href="https://ftbom.github.io/index.xml" rel="self" type="application/rss+xml" />
