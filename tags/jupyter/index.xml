@@ -10,7 +10,7 @@
     <pubDate>Mon, 14 Feb 2022 19:53:10 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/install-jupyterlab-in-android/</guid>
-    <description><![CDATA[
+    <description><![CDATA[<p></p>
 <h2 id="jupyterlab简介" class="headerLink">
     <a href="#jupyterlab%e7%ae%80%e4%bb%8b" class="header-mark"></a>JupyterLab简介</h2><p><a href="https://jupyterlab.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer">JupyterLab</a>是一个基于Web的集成开发环境。在JupyterLab中可以通过安装kernel来运行各种代码，还可以在代码块之间插入Markdown文本，同时JupyterLab也提供了终端管理的功能。</p>
 <p>Android设备易于携带，JupyterLab基于Web易于分享，通过在Android设备上安装JupyterLab，可以获得一个强大又便捷的集成开发环境。</p>

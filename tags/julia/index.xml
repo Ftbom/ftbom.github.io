@@ -10,7 +10,7 @@
     <pubDate>Fri, 25 Feb 2022 20:33:38 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/julia_plot_in_file/</guid>
-    <description><![CDATA[
+    <description><![CDATA[<p></p>
 <p>Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。</p>
 <p>Julia语言没有内建的作图能力， 作图需要通过安装扩展包来实现，常用的作图包有Gadfly、Plots和PyPlot。</p>
 <p>本文介绍如何在Julia脚本文件中使用Plots进行绘图并正常显示绘图结果。</p>
