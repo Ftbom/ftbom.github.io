@@ -6,7 +6,7 @@
 
 {{<friend name="申请友链"
 url="https://ftbom.github.io/request-a-friend-link/"
-logo="http://localhost:1313/images/avatar_friend.svg"
+logo="https://ftbom.github.io/images/avatar_friend.svg"
 word="欢迎交换友链">}}
 
 {{<friend name="Zhiim's Blog"
