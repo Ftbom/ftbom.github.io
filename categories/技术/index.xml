@@ -33,8 +33,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用julia-pathtoscriptjl运行脚本文件" class="headerLink">
     <a href="#%e4%bd%bf%e7%94%a8julia-pathtoscriptjl%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用<code>julia path/to/script.jl</code>运行脚本文件</h2><p>不在REPL中运行脚本文件时，Julia不会自动调用<code>display</code>函数。</p>
@@ -47,8 +47,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>改为</p>
 <div class="highlight"><div class="chroma">
@@ -58,10 +58,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-<span class="o">...</span>
-<span class="n">readline</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">readline</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后终端运行<code>julia path/to/script.jl</code>即可得到绘图结果。</p>
 <h2 id="使用vscode插件julia运行脚本文件" class="headerLink">
@@ -92,8 +92,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">termux-setup-storage
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">termux-setup-storage
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装python和各项依赖" class="headerLink">
     <a href="#%e5%ae%89%e8%a3%85python%e5%92%8c%e5%90%84%e9%a1%b9%e4%be%9d%e8%b5%96" class="header-mark"></a>安装Python和各项依赖</h3><p>安装Python：</p>
@@ -102,8 +102,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pkg install python
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pkg install python
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用pkg命令安装软件包时会先更新软件源再进行安装。</p>
 <p>安装所需依赖：</p>
@@ -112,8 +112,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pkg install clang python fftw libzmq freetype libpng pkg-config libcrypt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pkg install clang python fftw libzmq freetype libpng pkg-config libcrypt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装jupyterlab并运行" class="headerLink">
     <a href="#%e5%ae%89%e8%a3%85jupyterlab%e5%b9%b6%e8%bf%90%e8%a1%8c" class="header-mark"></a>安装JupyterLab并运行</h3><p>在Termux中安装的Python已经带有pip，通过以下命令安装JupyterLab：</p>
@@ -122,8 +122,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install jupyterlab
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install jupyterlab
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行:</p>
 <div class="highlight"><div class="chroma">
@@ -131,8 +131,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter-lab
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">jupyter-lab
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行Notebook：</p>
 <div class="highlight"><div class="chroma">
@@ -140,8 +140,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter notebook
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">jupyter notebook
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="在userland中安装jupyterlab" class="headerLink">
     <a href="#%e5%9c%a8userland%e4%b8%ad%e5%ae%89%e8%a3%85jupyterlab" class="header-mark"></a>在UserLAnd中安装JupyterLab</h2><p>UserLAnd使Linux发行版和Linux软件可以在Android设备上运行，而无需root权限。UserLAnd提供多种Linux发行版和软件供用户安装，推荐安装Ubuntu系统，使用SSH作为连接方式。</p>
@@ -158,8 +158,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt update
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装Python3：</p>
 <div class="highlight"><div class="chroma">
@@ -167,8 +167,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install python3
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install python3
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装所需依赖：</p>
 <div class="highlight"><div class="chroma">
@@ -176,8 +176,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt install python3-dev python3-pip python3-pyrsistent
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install python3-dev python3-pip python3-pyrsistent
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将JupyterLab的安装目录添加到环境变量：</p>
 <div class="highlight"><div class="chroma">
@@ -186,9 +186,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#将username更改为设置的用户名
-export PATH=$PATH:/home/username/.local/bin
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#将username更改为设置的用户名
+</span></span><span class="line"><span class="cl">export PATH=$PATH:/home/username/.local/bin
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装jupyterlab并运行-1" class="headerLink">
     <a href="#%e5%ae%89%e8%a3%85jupyterlab%e5%b9%b6%e8%bf%90%e8%a1%8c-1" class="header-mark"></a>安装JupyterLab并运行</h3><p>安装JupyterLab：</p>
@@ -197,8 +197,8 @@ export PATH=$PATH:/home/username/.local/bin
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install jupyterlab
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install jupyterlab
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行:</p>
 <div class="highlight"><div class="chroma">
@@ -206,8 +206,8 @@ export PATH=$PATH:/home/username/.local/bin
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter-lab
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">jupyter-lab
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行Notebook：</p>
 <div class="highlight"><div class="chroma">
@@ -215,8 +215,8 @@ export PATH=$PATH:/home/username/.local/bin
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter notebook
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">jupyter notebook
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置jupyterlab允许其他设备访问" class="headerLink">
     <a href="#%e9%85%8d%e7%bd%aejupyterlab%e5%85%81%e8%ae%b8%e5%85%b6%e4%bb%96%e8%ae%be%e5%a4%87%e8%ae%bf%e9%97%ae" class="header-mark"></a>配置JupyterLab允许其他设备访问</h2><p>JupyterLab默认不允许其他设备访问，可通过更改配置文件来允许其他设备访问。</p>
@@ -226,8 +226,8 @@ export PATH=$PATH:/home/username/.local/bin
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ls ~/.jupyter
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls ~/.jupyter
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>由于jupyter_notebook_config.json文件的优先级高于其他配置文件，若存在jupyter_notebook_config.json文件则删除此文件：</p>
 <div class="highlight"><div class="chroma">
@@ -235,8 +235,8 @@ export PATH=$PATH:/home/username/.local/bin
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rm ~/.jupyter/jupyter_notebook_config.json
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm ~/.jupyter/jupyter_notebook_config.json
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成配置文件：</p>
 <div class="highlight"><div class="chroma">
@@ -244,8 +244,8 @@ export PATH=$PATH:/home/username/.local/bin
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">jupyter notebook --generate-config
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">jupyter notebook --generate-config
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置文件名为jupyter_notebook_config.py。</p>
 <p>当JupyterLab能被其他设备访问时，最好为JupyterLab设置访问密码。设置密码需要生成密码的散列值，这样即使获取到了散列值，也几乎无法逆向获取到密码。</p>
@@ -256,9 +256,9 @@ export PATH=$PATH:/home/username/.local/bin
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">notebook.auth</span> <span class="kn">import</span> <span class="n">passwd</span>
-<span class="n">passwd</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">notebook.auth</span> <span class="kn">import</span> <span class="n">passwd</span>
+</span></span><span class="line"><span class="cl"><span class="n">passwd</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>输出结果即为密码的散列值。</p>
 <p>打开jupyter_notebook_config.py，对如下选项进行设置：</p>
@@ -270,11 +270,11 @@ export PATH=$PATH:/home/username/.local/bin
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span>  <span class="c1"># 允许访问JupyterLab的IP，*表示任意IP</span>
-<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;生成的密码散列值&#39;</span>
-<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">8888</span> <span class="c1"># 使用的端口，默认8888</span>
-<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># 不使用token</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span>  <span class="c1"># 允许访问JupyterLab的IP，*表示任意IP</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;生成的密码散列值&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">8888</span> <span class="c1"># 使用的端口，默认8888</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># 不使用token</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>设置好后就可以通过<code>http://ip:port</code>访问JupyterLab了。</p>
 ]]></description>

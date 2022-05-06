@@ -33,8 +33,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用julia-pathtoscriptjl运行脚本文件" class="headerLink">
     <a href="#%e4%bd%bf%e7%94%a8julia-pathtoscriptjl%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用<code>julia path/to/script.jl</code>运行脚本文件</h2><p>不在REPL中运行脚本文件时，Julia不会自动调用<code>display</code>函数。</p>
@@ -47,8 +47,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>改为</p>
 <div class="highlight"><div class="chroma">
@@ -58,10 +58,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-<span class="o">...</span>
-<span class="n">readline</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">readline</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后终端运行<code>julia path/to/script.jl</code>即可得到绘图结果。</p>
 <h2 id="使用vscode插件julia运行脚本文件" class="headerLink">
