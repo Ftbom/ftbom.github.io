@@ -1,12 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Ftbom&#39;s Blog</title>
-        <link>https://ftbom.github.io/</link>
-        <description>记录与分享</description>
+        <title>Lanraragi - 标签 - Ftbom&#39;s Blog</title>
+        <link>https://ftbom.github.io/tags/lanraragi/</link>
+        <description>Lanraragi - 标签 - Ftbom&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
-            <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Tue, 03 Jan 2023 12:41:00 &#43;0800</lastBuildDate>
-            <atom:link href="https://ftbom.github.io/index.xml" rel="self" type="application/rss+xml" />
-        <item>
+            <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Tue, 03 Jan 2023 12:41:00 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/tags/lanraragi/" rel="self" type="application/rss+xml" /><item>
     <title>在Termux中安装LANraragi</title>
     <link>https://ftbom.github.io/lanraragi_in_termux/</link>
     <pubDate>Tue, 03 Jan 2023 12:41:00 &#43;0800</pubDate><author>
@@ -155,69 +153,6 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>则在Ubuntu的<code>/sdcard</code>目录下可以看到Android系统的文件，在LANraragi的设置中设置成对应的漫画目录即可。</p>
-]]></description>
-</item><item>
-    <title>Julia脚本文件中使用Plots绘图</title>
-    <link>https://ftbom.github.io/julia_plot_in_file/</link>
-    <pubDate>Fri, 25 Feb 2022 20:33:38 &#43;0800</pubDate><author>
-        <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/julia_plot_in_file/</guid>
-    <description><![CDATA[<p></p>
-<p>Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。</p>
-<p>Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作图包有Gadfly、Plots和PyPlot。</p>
-<p>本文介绍如何在Julia脚本文件中使用Plots进行绘图并正常显示绘图结果。</p>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw"></i>Julia和Plots版本<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>Julia v1.7.2</p>
-<p>Plots v1.25.11</p>
-</div>
-        </div>
-    </div>
-<h2 id="在repl中运行脚本文件" class="headerLink">
-    <a href="#%e5%9c%a8repl%e4%b8%ad%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>在REPL中运行脚本文件</h2><p>在REPL中，Julia会对每个变量自动调用<code>display</code>函数进行显示。在REPL中直接使用<code>plot</code>函数可以正常显示绘图的结果。</p>
-<p>本文的主要目的是使用脚本文件进行绘图，在REPL中运行脚本文件的命令为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="使用julia-pathtoscriptjl运行脚本文件" class="headerLink">
-    <a href="#%e4%bd%bf%e7%94%a8julia-pathtoscriptjl%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用<code>julia path/to/script.jl</code>运行脚本文件</h2><p>如果不在REPL中运行脚本文件时，Julia不会自动调用<code>display</code>函数。</p>
-<p>为了显示绘图结果，需要<a href="https://docs.juliaplots.org/latest/tutorial/#Plotting-in-Scripts" target="_blank" rel="noopener noreffer">在代码中调用<code>display</code>函数</a>。</p>
-<p>但是，使用<code>julia path/to/script.jl</code>运行脚本文件时，程序会在文件中所有语句执行完毕后自动退出，这样就看不到绘图结果。</p>
-<p>为了防止Julia执行完所有语句后退出，可以在脚本文件的末尾使用<code>readline</code>函数。</p>
-<p>这种运行方式下需将代码做如下更改：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>改为</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="n">readline</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后终端运行<code>julia path/to/script.jl</code>即可得到绘图结果。</p>
-<h2 id="使用vscode插件julia运行脚本文件" class="headerLink">
-    <a href="#%e4%bd%bf%e7%94%a8vscode%e6%8f%92%e4%bb%b6julia%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用VScode插件Julia运行脚本文件</h2><p>使用Julia插件运行代码时，会自动将绘图结果显示在一个新的标签栏中，于是直接使用<code>plot</code>函数就可以得到绘图结果。</p>
-<p>需要注意的是：<strong>在VScode中不可使用Code Runner插件来运行脚本文件，而要使用Julia插件来运行脚本文件</strong>。</p>
 ]]></description>
 </item></channel>
 </rss>

@@ -5,24 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">Julia脚本文件中使用Plots绘图 - Ftbom&#39;s Blog</title><meta name="Description" content="记录与分享"><meta property="og:title" content="Julia脚本文件中使用Plots绘图" />
-<meta property="og:description" content="Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。 Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作" />
+    <title class="pjax-title">在Termux中安装LANraragi - Ftbom&#39;s Blog</title><meta name="Description" content="记录与分享"><meta property="og:title" content="在Termux中安装LANraragi" />
+<meta property="og:description" content="LANraragi是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Andr" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ftbom.github.io/julia_plot_in_file/" /><meta property="og:image" content="https://ftbom.github.io/images/cover.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-25T20:33:38+08:00" />
-<meta property="article:modified_time" content="2022-02-25T20:33:38+08:00" />
+<meta property="og:url" content="https://ftbom.github.io/lanraragi_in_termux/" /><meta property="og:image" content="https://ftbom.github.io/images/cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-03T12:41:00+08:00" />
+<meta property="article:modified_time" content="2023-01-03T12:41:00+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ftbom.github.io/images/cover.png"/>
 
-<meta name="twitter:title" content="Julia脚本文件中使用Plots绘图"/>
-<meta name="twitter:description" content="Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。 Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作"/>
+<meta name="twitter:title" content="在Termux中安装LANraragi"/>
+<meta name="twitter:description" content="LANraragi是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Andr"/>
 <meta name="application-name" content="Ftbom&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Ftbom&#39;s Blog">
 
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ftbom.github.io/julia_plot_in_file/" /><link rel="next" href="https://ftbom.github.io/lanraragi_in_termux/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ftbom.github.io/lanraragi_in_termux/" /><link rel="prev" href="https://ftbom.github.io/julia_plot_in_file/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript>
     
@@ -32,13 +32,13 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Julia脚本文件中使用Plots绘图",
+        "headline": "在Termux中安装LANraragi",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/ftbom.github.io\/julia_plot_in_file\/"
-        },"genre": "posts","keywords": "Julia","wordcount":  669 ,
-        "url": "https:\/\/ftbom.github.io\/julia_plot_in_file\/","datePublished": "2022-02-25T20:33:38+08:00","dateModified": "2022-02-25T20:33:38+08:00","publisher": {
+            "@id": "https:\/\/ftbom.github.io\/lanraragi_in_termux\/"
+        },"genre": "posts","keywords": "Lanraragi, Termux","wordcount":  640 ,
+        "url": "https:\/\/ftbom.github.io\/lanraragi_in_termux\/","datePublished": "2023-01-03T12:41:00+08:00","dateModified": "2023-01-03T12:41:00+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -132,19 +132,20 @@
         <h2 class="toc-title">目录</h2>
         <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
   <ul>
-    <li><a href="#在repl中运行脚本文件">在REPL中运行脚本文件</a></li>
-    <li><a href="#使用julia-pathtoscriptjl运行脚本文件">使用<code>julia path/to/script.jl</code>运行脚本文件</a></li>
-    <li><a href="#使用vscode插件julia运行脚本文件">使用VScode插件Julia运行脚本文件</a></li>
+    <li><a href="#安装termux及ubuntu发行版">安装Termux及Ubuntu发行版</a></li>
+    <li><a href="#安装lanraragi">安装LANraragi</a></li>
+    <li><a href="#运行lanraragi">运行LANraragi</a></li>
+    <li><a href="#设置档案位置">设置档案位置</a></li>
   </ul>
 </nav></div>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Julia脚本文件中使用Plots绘图</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">在Termux中安装LANraragi</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Ftbom</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-25">2022-02-25</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-02-25">2022-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 669 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/julia_plot_in_file/" class="leancloud_visitors" data-flag-title="Julia脚本文件中使用Plots绘图">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-01-03">2023-01-03</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2023-01-03">2023-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 640 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/lanraragi_in_termux/" class="leancloud_visitors" data-flag-title="在Termux中安装LANraragi">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
-                    </span>&nbsp;<span id="/julia_plot_in_file/" class="comment_count" data-flag-title="Julia脚本文件中使用Plots绘图">
+                    </span>&nbsp;<span id="/lanraragi_in_termux/" class="comment_count" data-flag-title="在Termux中安装LANraragi">
                         <i class="far fa-comments fa-fw"></i>&nbsp;<span class="twikoo-comment-count" id="twikoo-comment-count"></span>&nbsp;条评论
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -154,65 +155,126 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#在repl中运行脚本文件">在REPL中运行脚本文件</a></li>
-    <li><a href="#使用julia-pathtoscriptjl运行脚本文件">使用<code>julia path/to/script.jl</code>运行脚本文件</a></li>
-    <li><a href="#使用vscode插件julia运行脚本文件">使用VScode插件Julia运行脚本文件</a></li>
+    <li><a href="#安装termux及ubuntu发行版">安装Termux及Ubuntu发行版</a></li>
+    <li><a href="#安装lanraragi">安装LANraragi</a></li>
+    <li><a href="#运行lanraragi">运行LANraragi</a></li>
+    <li><a href="#设置档案位置">设置档案位置</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><div class="details admonition warning open">
-                <div class="details-summary admonition-title">
-                    <i class="icon fas fa-exclamation-triangle fa-fwwarning"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
-                </div>
-                <div class="details-content">
-                    <div class="admonition-content">
-                        本文最后更新于 <span class="timeago" datetime="2022-02-25T20:33:38" title="February 25, 2022">2022-02-25</span>，文中内容可能已过时。</div>
-                </div>
-            </div><p><img
+            </div><div class="content" id="content"><p><img
         class="lazyload"
-        data-src="https://s2.loli.net/2022/02/28/MAk7Io6NtOiCxuB.png"
-        data-srcset="https://s2.loli.net/2022/02/28/MAk7Io6NtOiCxuB.png, https://s2.loli.net/2022/02/28/MAk7Io6NtOiCxuB.png 1.5x, https://s2.loli.net/2022/02/28/MAk7Io6NtOiCxuB.png 2x"
+        data-src="https://s2.loli.net/2023/01/03/coSZYfrvN8xW1Q7.png"
+        data-srcset="https://s2.loli.net/2023/01/03/coSZYfrvN8xW1Q7.png, https://s2.loli.net/2023/01/03/coSZYfrvN8xW1Q7.png 1.5x, https://s2.loli.net/2023/01/03/coSZYfrvN8xW1Q7.png 2x"
         data-sizes="auto"
-        alt="https://s2.loli.net/2022/02/28/MAk7Io6NtOiCxuB.png"
-        title="julia.png"></p>
-<p>Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。</p>
-<p>Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作图包有Gadfly、Plots和PyPlot。</p>
-<p>本文介绍如何在Julia脚本文件中使用Plots进行绘图并正常显示绘图结果。</p>
+        alt="https://s2.loli.net/2023/01/03/coSZYfrvN8xW1Q7.png"
+        title="Lanraragi_Termux.png"></p>
+<p><a href="https://github.com/Difegue/LANraragi" target="_blank" rel="noopener noreffer">LANraragi</a>是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Android手机内的漫画进行管理。</p>
+<h2 id="安装termux及ubuntu发行版" class="headerLink">
+    <a href="#%e5%ae%89%e8%a3%85termux%e5%8f%8aubuntu%e5%8f%91%e8%a1%8c%e7%89%88" class="header-mark"></a>安装Termux及Ubuntu发行版</h2><p><a href="https://termux.dev" target="_blank" rel="noopener noreffer">Termux</a>是Android系统上的一个高级终端模拟器，可以运行很多Linux系统的软件，还可通过proot安装各种Linux系统发行版。推荐通过Github安装Termux软件。</p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw"></i>Julia和Plots版本<i class="details-icon fas fa-angle-right fa-fw"></i>
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>Julia v1.7.2</p>
-<p>Plots v1.25.11</p>
-</div>
+            <div class="admonition-content">第一次打开Termux若初始化失败，请使用代理</div>
         </div>
     </div>
-<h2 id="在repl中运行脚本文件" class="headerLink">
-    <a href="#%e5%9c%a8repl%e4%b8%ad%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>在REPL中运行脚本文件</h2><p>在REPL中，Julia会对每个变量自动调用<code>display</code>函数进行显示。在REPL中直接使用<code>plot</code>函数可以正常显示绘图的结果。</p>
-<p>本文的主要目的是使用脚本文件进行绘图，在REPL中运行脚本文件的命令为：</p>
+<p>安装完成后，首先使Termux获取储存权限：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">termux-setup-storage
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="使用julia-pathtoscriptjl运行脚本文件" class="headerLink">
-    <a href="#%e4%bd%bf%e7%94%a8julia-pathtoscriptjl%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用<code>julia path/to/script.jl</code>运行脚本文件</h2><p>如果不在REPL中运行脚本文件时，Julia不会自动调用<code>display</code>函数。</p>
-<p>为了显示绘图结果，需要<a href="https://docs.juliaplots.org/latest/tutorial/#Plotting-in-Scripts" target="_blank" rel="noopener noreffer">在代码中调用<code>display</code>函数</a>。</p>
-<p>但是，使用<code>julia path/to/script.jl</code>运行脚本文件时，程序会在文件中所有语句执行完毕后自动退出，这样就看不到绘图结果。</p>
-<p>为了防止Julia执行完所有语句后退出，可以在脚本文件的末尾使用<code>readline</code>函数。</p>
-<p>这种运行方式下需将代码做如下更改：</p>
+</div><p>安装proot-distro：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pkg install proot-distro
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>改为</p>
+</div><p>然后安装Ubuntu</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">proot-distro install ubuntu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成后，通过如下命令可进入Ubuntu</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">proot-distro login ubuntu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装lanraragi" class="headerLink">
+    <a href="#%e5%ae%89%e8%a3%85lanraragi" class="header-mark"></a>安装LANraragi</h2><p>采用源码安装的方式安装LANraragi。</p>
+<p>首先，进入Ubuntu并更新软件源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">proot-distro login ubuntu
+</span></span><span class="line"><span class="cl">apt update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先安装LANraragi所需的依赖项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install git curl build-essential make gnupg pkg-config cpanminus redis-server libarchive-dev imagemagick webp libssl-dev zlib1g-dev perlmagick ghostscript
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后安装npm和nodejs：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -sL install-node.vercel.app/lts <span class="p">|</span> bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装redis：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>克隆Git仓库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone -b master http://github.com/Difegue/LANraragi /home/koyomi/lanraragi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开目录并进行编译安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /home/koyomi/lanraragi <span class="o">&amp;&amp;</span> npm run lanraragi-installer install-full
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译需要30-60分钟。</p>
+<p>若需要对LANraragi进行更新：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -220,42 +282,60 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="n">readline</span><span class="p">()</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone -b master http://github.com/Difegue/LANraragi lanraragi
+</span></span><span class="line"><span class="cl">cp -fr lanraragi /home/koyomi/
+</span></span><span class="line"><span class="cl">npm run lanraragi-installer install-full
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>然后终端运行<code>julia path/to/script.jl</code>即可得到绘图结果。</p>
-<h2 id="使用vscode插件julia运行脚本文件" class="headerLink">
-    <a href="#%e4%bd%bf%e7%94%a8vscode%e6%8f%92%e4%bb%b6julia%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用VScode插件Julia运行脚本文件</h2><p>使用Julia插件运行代码时，会自动将绘图结果显示在一个新的标签栏中，于是直接使用<code>plot</code>函数就可以得到绘图结果。</p>
-<p>需要注意的是：<strong>在VScode中不可使用Code Runner插件来运行脚本文件，而要使用Julia插件来运行脚本文件</strong>。</p>
+</div><h2 id="运行lanraragi" class="headerLink">
+    <a href="#%e8%bf%90%e8%a1%8clanraragi" class="header-mark"></a>运行LANraragi</h2><p>通过以下命令运行LANraragi：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">redis-server /etc/redis/redis.conf
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/koyomi/lanraragi <span class="o">&amp;&amp;</span> npm start
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="设置档案位置" class="headerLink">
+    <a href="#%e8%ae%be%e7%bd%ae%e6%a1%a3%e6%a1%88%e4%bd%8d%e7%bd%ae" class="header-mark"></a>设置档案位置</h2><p>若已通过以下命令使Termux获取储存权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">termux-setup-storage
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>则在Ubuntu的<code>/sdcard</code>目录下可以看到Android系统的文件，在LANraragi的设置中设置成对应的漫画目录即可。</p>
 </div>
 
         <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-02-25</span>
+                <span>更新于 2023-01-03</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://ftbom.github.io/julia_plot_in_file/" data-title="Julia脚本文件中使用Plots绘图" data-hashtags="Julia"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://ftbom.github.io/julia_plot_in_file/" data-hashtag="Julia"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://ftbom.github.io/julia_plot_in_file/" data-title="Julia脚本文件中使用Plots绘图" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://ftbom.github.io/julia_plot_in_file/" data-title="Julia脚本文件中使用Plots绘图"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Pocket" data-sharer="pocket" data-url="https://ftbom.github.io/julia_plot_in_file/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://ftbom.github.io/julia_plot_in_file/" data-title="Julia脚本文件中使用Plots绘图"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://ftbom.github.io/lanraragi_in_termux/" data-title="在Termux中安装LANraragi" data-hashtags="Lanraragi,Termux"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://ftbom.github.io/lanraragi_in_termux/" data-hashtag="Lanraragi"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://ftbom.github.io/lanraragi_in_termux/" data-title="在Termux中安装LANraragi" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://ftbom.github.io/lanraragi_in_termux/" data-title="在Termux中安装LANraragi"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Pocket" data-sharer="pocket" data-url="https://ftbom.github.io/lanraragi_in_termux/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://ftbom.github.io/lanraragi_in_termux/" data-title="在Termux中安装LANraragi"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/julia/">Julia</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/lanraragi/">Lanraragi</a>,&nbsp;<a href="/tags/termux/">Termux</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav">
-            <a href="/lanraragi_in_termux/" class="next" rel="next" title="在Termux中安装LANraragi">在Termux中安装LANraragi<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/julia_plot_in_file/" class="prev" rel="prev" title="Julia脚本文件中使用Plots绘图"><i class="fas fa-angle-left fa-fw"></i>Julia脚本文件中使用Plots绘图</a></div>
 </div>
 <div id="comments"><div id="twikoo"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://twikoo.js.org/">Twikoo</a>.
