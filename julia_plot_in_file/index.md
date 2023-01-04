@@ -1,7 +1,9 @@
 # Julia脚本文件中使用Plots绘图
 
 
-![julia.png](https://s2.loli.net/2022/02/28/MAk7Io6NtOiCxuB.png)
+<p style="text-align: center;">
+    <img src="/blog_images/julia.png" alt="julia.png">
+</p>
 
 Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。
 

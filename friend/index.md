@@ -4,9 +4,9 @@
 <div class="flink" id="article-container">
 <div class="friend-list-div" >
 
-{{<friend name="申请友链"
-url="https://ftbom.github.io/request-a-friend-link/"
-logo="https://ftbom.github.io/images/avatar_friend.svg"
+{{<friend name="交换友链"
+url="/request-a-friend-link/"
+logo="/images/avatar_friend.svg"
 word="欢迎交换友链">}}
 
 {{<friend name="Zhiim's Blog"

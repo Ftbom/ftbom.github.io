@@ -1,7 +1,9 @@
 # LANraragi插件小记
 
 
-![LANraragi.png](https://s2.loli.net/2023/01/03/8CywF4Z9hmqbJMn.png)
+<p style="text-align: center;">
+    <img src="/blog_images/LANraragi.png" alt="LANraragi.png">
+</p>
 
 LANraragi提供了丰富的插件和脚本，借助插件能够以多种途径获取漫画的信息，但是这些插件并没有完全满足我的需求。
 
@@ -41,7 +43,7 @@ LANraragi中并不存在实现上述功能的插件，于是我就参照已有�
 >参照Filename Parsing v.1.0 by Difegue
 
 <p style="text-align: center;">
-    <img src="https://s2.loli.net/2023/01/03/2APOe4tX8qiyKlY.png" alt="tagfolder.png">
+    <img src="/blog_images/tagfolder.png" alt="tagfolder.png">
 </p>
 
 使用说明：
@@ -119,12 +121,12 @@ sub get_tags {
 >参照Subfolders to Categories v.1.0 by Difegue 
 
 <p style="text-align: center;">
-    <img src="https://s2.loli.net/2023/01/03/Z96rHIguPKBhnXE.png" alt="TopfolderCat.png">
+    <img src="/blog_images/TopfolderCat.png" alt="TopfolderCat.png">
 </p>
 
 使用说明：
 * 点击Trigger Script运行脚本
-* Plugin Settings设置是否先删除以有的类型
+* Plugin Settings设置是否先删除已有的类型
 
 文件内容：
 

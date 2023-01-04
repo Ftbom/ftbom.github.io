@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Lanraragi - 标签 - Ftbom&#39;s Blog</title>
+        <title>LANraragi - 标签 - Ftbom&#39;s Blog</title>
         <link>https://ftbom.github.io/tags/lanraragi/</link>
-        <description>Lanraragi - 标签 - Ftbom&#39;s Blog</description>
+        <description>LANraragi - 标签 - Ftbom&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
             <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Tue, 03 Jan 2023 16:20:52 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/tags/lanraragi/" rel="self" type="application/rss+xml" /><item>
     <title>LANraragi插件小记</title>
@@ -10,7 +10,9 @@
     <pubDate>Tue, 03 Jan 2023 16:20:52 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/lanraragi_plugins/</guid>
-    <description><![CDATA[<p></p>
+    <description><![CDATA[<p style="text-align: center;">
+    
+</p>
 <p>LANraragi提供了丰富的插件和脚本，借助插件能够以多种途径获取漫画的信息，但是这些插件并没有完全满足我的需求。</p>
 <p>于是有了这篇文章，记录我的LANraragi插件编写过程。</p>
 <h2 id="需求" class="headerLink">
@@ -206,7 +208,7 @@
 <p>使用说明：</p>
 <ul>
 <li>点击Trigger Script运行脚本</li>
-<li>Plugin Settings设置是否先删除以有的类型</li>
+<li>Plugin Settings设置是否先删除已有的类型</li>
 </ul>
 <p>文件内容：</p>
 <div class="highlight"><div class="chroma">
@@ -604,10 +606,12 @@ TagFolder定义插件的设置项是string类型，获取输入字符；Topfolde
     <pubDate>Tue, 03 Jan 2023 12:41:00 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/lanraragi_in_termux/</guid>
-    <description><![CDATA[<p></p>
-<p><a href="https://github.com/Difegue/LANraragi" target="_blank" rel="noopener noreffer">LANraragi</a>是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Android手机内的漫画进行管理。</p>
+    <description><![CDATA[<p style="text-align: center;">
+    
+</p>
+<p><a href="https://github.com/Difegue/LANraragi" target="_blank" rel="noopener noreferrer">LANraragi</a>是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Android手机内的漫画进行管理。</p>
 <h2 id="安装termux及ubuntu发行版" class="headerLink">
-    <a href="#%e5%ae%89%e8%a3%85termux%e5%8f%8aubuntu%e5%8f%91%e8%a1%8c%e7%89%88" class="header-mark"></a>安装Termux及Ubuntu发行版</h2><p><a href="https://termux.dev" target="_blank" rel="noopener noreffer">Termux</a>是Android系统上的一个高级终端模拟器，可以运行很多Linux系统的软件，还可通过proot安装各种Linux系统发行版。推荐通过Github安装Termux软件。</p>
+    <a href="#%e5%ae%89%e8%a3%85termux%e5%8f%8aubuntu%e5%8f%91%e8%a1%8c%e7%89%88" class="header-mark"></a>安装Termux及Ubuntu发行版</h2><p><a href="https://termux.dev" target="_blank" rel="noopener noreferrer">Termux</a>是Android系统上的一个高级终端模拟器，可以运行很多Linux系统的软件，还可通过proot安装各种Linux系统发行版。推荐通过Github安装Termux软件。</p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>

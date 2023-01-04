@@ -1,7 +1,9 @@
 # 在Termux中安装LANraragi
 
 
-![Lanraragi_Termux.png](https://s2.loli.net/2023/01/03/coSZYfrvN8xW1Q7.png)
+<p style="text-align: center;">
+    <img src="/blog_images/Lanraragi_Termux.png" alt="Lanraragi_Termux.png">
+</p>
 
 [LANraragi](https://github.com/Difegue/LANraragi)是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Android手机内的漫画进行管理。
 
