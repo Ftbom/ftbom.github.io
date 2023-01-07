@@ -1,9 +1,9 @@
 # 借助Zapier将Disqus通知推送到Telegram机器人
 
 
-<p style="text-align: center;">
+<div style="text-align: center;">
     <img src="/blog_images/disqus_telegram.png" alt="disqus_telegram.png">
-</p>
+</div>
 
 之前博客的评论系统用的是[Valine](https://valine.js.org/)，最近发现不能用了，原来是LeanCloud限制长时间不使用自动冻结应用。为了省事，把博客的评论系统切换到了[Disqus](https://disqus.com/)。
 
@@ -29,21 +29,21 @@ Zapier免费版每个月只支持运行100次任务，即免费版每个月最�
 
 首先创建新的Zap，Trigger中的App event选择Disqus连接器，然后Event选择为New Comment。如图所示：
 
-<p style="text-align: center;">
-    <img src="/blog_images/disqus_telegram1.png" alt="disqus_telegram1.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/disqus_telegram1.png" alt="disqus_telegram1.png" >}}
+</div>
 
 点击Continue，授权Disqus账户，授权后如图所示：
 
-<p style="text-align: center;">
-    <img src="/blog_images/disqus_telegram2.png" alt="disqus_telegram2.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/disqus_telegram2.png" alt="disqus_telegram2.png" >}}
+</div>
 
 继续设置trigger，include选择Unapproved Posts，Forum选择要获取新评论通知的网站，如图所示：
 
-<p style="text-align: center;">
-    <img src="/blog_images/disqus_telegram3.png" alt="disqus_telegram3.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/disqus_telegram3.png" alt="disqus_telegram3.png" >}}
+</div>
 
 继续向下，测试trigger，获取网站上的待审批评论的数据。若网站尚未有评论，先自行在网站上发一条评论。
 >匿名评论一般是待审批评论
@@ -52,15 +52,15 @@ Zapier免费版每个月只支持运行100次任务，即免费版每个月最�
 
 设置Zap的Action，App event选择Code by Zapier，Event选择Run Javascript，如图所示：
 
-<p style="text-align: center;">
-    <img src="/blog_images/disqus_telegram4.png" alt="disqus_telegram4.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/disqus_telegram4.png" alt="disqus_telegram4.png" >}}
+</div>
 
 Set up action中Input Data设置如下图：
 
-<p style="text-align: center;">
-    <img src="/blog_images/disqus_telegram5.png" alt="disqus_telegram5.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/disqus_telegram5.png" alt="disqus_telegram5.png" >}}
+</div>
 
 `tg_token`和`tg_chatid`分别填入准备工作中获取的token和id。
 
@@ -104,16 +104,17 @@ output = resp;
 
 继续向下，点击Test action可以进行测试，接收待审核评论的消息效果如图：
 
-<p style="text-align: center;">
-    <img src="/blog_images/disqus_telegram6.png" alt="disqus_telegram6.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/disqus_telegram6.png" alt="disqus_telegram6.png" >}}
+</div>
 
 ## 已审批/通过的新评论
 
 创建一个新的Zap，设置步骤与待审批的新评论设置类似，仅在某些部分有一些更改：
 * 设置trigger时include改为选择Approved Posts；
 * Set up action中Input Data设置如下图，`admin_url`设置为Disqus用户主页的链接，如：`https://disqus.com/by/Ftbom/`
-  <p style="text-align: center;"><img src="/blog_images/disqus_telegram7.png" alt="disqus_telegram7.png"></p>
+<div style="text-align: center;">{{< image src="/blog_images/disqus_telegram7.png" alt="disqus_telegram7.png" >}}</div>
+
 * Set up action的Code中填入的代码改为：
 
 ```javascript

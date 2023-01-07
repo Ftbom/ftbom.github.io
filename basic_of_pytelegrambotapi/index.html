@@ -173,9 +173,9 @@
     <li><a href="#结语">结语</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p style="text-align: center;">
+            </div><div class="content" id="content"><div style="text-align: center;">
     <img src="/blog_images/python_telegram.png" alt="python_telegram.png">
-</p>
+</div>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw"></i>pyTelegramBotAPI版本<i class="details-icon fas fa-angle-right fa-fw"></i>
@@ -247,9 +247,16 @@
 </div>
 </div><p><code>send_message</code>函数传入的第一个参数是当前对话的id，第二个参数是发送消息的内容。通过<code>parse_mode</code>可以设置消息内容的格式。</p>
 <p>上述代码的运行效果如下：</p>
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_1.png" alt="pytelegrambotapi_1.png">
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_1.png" title="pytelegrambotapi_1.png" data-thumbnail="/blog_images/pytelegrambotapi_1.png">
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_1.png"
+            data-srcset="/blog_images/pytelegrambotapi_1.png, /blog_images/pytelegrambotapi_1.png 1.5x, /blog_images/pytelegrambotapi_1.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_1.png">
+    </a>
+</div>
 <h2 id="编辑消息" class="headerLink">
     <a href="#%e7%bc%96%e8%be%91%e6%b6%88%e6%81%af" class="header-mark"></a>编辑消息</h2><p>编辑消息的函数为<code>edit_message_text</code>，使用实例如下：</p>
 <div class="highlight"><div class="chroma">
@@ -297,9 +304,16 @@
 </div>
 </div><p>下一步操作将会在接收到用户输入后进行触发。</p>
 <p>上述代码的运行效果如下：</p>
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_2.png" alt="pytelegrambotapi_2.png">
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_2.png" title="pytelegrambotapi_2.png" data-thumbnail="/blog_images/pytelegrambotapi_2.png">
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_2.png"
+            data-srcset="/blog_images/pytelegrambotapi_2.png, /blog_images/pytelegrambotapi_2.png 1.5x, /blog_images/pytelegrambotapi_2.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_2.png">
+    </a>
+</div>
 <h2 id="消息按键" class="headerLink">
     <a href="#%e6%b6%88%e6%81%af%e6%8c%89%e9%94%ae" class="header-mark"></a>消息按键</h2><p>Telegram的消息按键有两种：<code>ReplyKeyboard</code>和<code>InlineKeyboard</code></p>
 <h3 id="replykeyboard" class="headerLink">
@@ -343,14 +357,28 @@
 </div>
 </div><p>在<code>ReplyKeyboardMarkup</code>初始化时将<code>resize_keyboard</code>设为<code>True</code>，则按键会自动调节到合适的高度。</p>
 <p>当输入<code>/test</code>，机器人的运行结果为：</p>
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_3.png" alt="pytelegrambotapi_3.png">
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_3.png" title="pytelegrambotapi_3.png" data-thumbnail="/blog_images/pytelegrambotapi_3.png">
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_3.png"
+            data-srcset="/blog_images/pytelegrambotapi_3.png, /blog_images/pytelegrambotapi_3.png 1.5x, /blog_images/pytelegrambotapi_3.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_3.png">
+    </a>
+</div>
 <p>若将<code>reply_markup</code>的值设为<code>ReplyKeyboardRemove</code>，按键会在发送该消息后消失，否则按键不会消失。</p>
 <p>运行效果为：</p>
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_4.png" alt="pytelegrambotapi_4.png">
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_4.png" title="pytelegrambotapi_4.png" data-thumbnail="/blog_images/pytelegrambotapi_4.png">
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_4.png"
+            data-srcset="/blog_images/pytelegrambotapi_4.png, /blog_images/pytelegrambotapi_4.png 1.5x, /blog_images/pytelegrambotapi_4.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_4.png">
+    </a>
+</div>
 <h3 id="inlinekeyboard" class="headerLink">
     <a href="#inlinekeyboard" class="header-mark"></a>InlineKeyboard</h3><p><code>InlineKeyboard</code>是在消息的下方带有按键，且可定义按键的类型，常用的按键类型为：</p>
 <ul>
@@ -402,14 +430,28 @@
 </div>
 </div><p><code>quick_markup</code>的<code>row_width</code>参数定义了同一行的最大按钮数量。</p>
 <p>上述代码定义的<code>InlineKeyboard</code>样式为：</p>
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_5.png" alt="pytelegrambotapi_5.png">
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_5.png" title="pytelegrambotapi_5.png" data-thumbnail="/blog_images/pytelegrambotapi_5.png">
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_5.png"
+            data-srcset="/blog_images/pytelegrambotapi_5.png, /blog_images/pytelegrambotapi_5.png 1.5x, /blog_images/pytelegrambotapi_5.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_5.png">
+    </a>
+</div>
 <p>通过<code>@bot.callback_query_handler</code>函数修饰符对<code>callback_data</code>处理，<code>call.data</code>对应<code>callback_data</code>。再按下按键后，按键上会出现进度标志，通过调用<code>answer_callback_query</code>可以消去进度标志。</p>
 <p>上述代码，按下test1按钮后，结果为：</p>
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_6.png" alt="pytelegrambotapi_6.png">
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_6.png" title="pytelegrambotapi_6.png" data-thumbnail="/blog_images/pytelegrambotapi_6.png">
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_6.png"
+            data-srcset="/blog_images/pytelegrambotapi_6.png, /blog_images/pytelegrambotapi_6.png 1.5x, /blog_images/pytelegrambotapi_6.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_6.png">
+    </a>
+</div>
 <h2 id="文件处理" class="headerLink">
     <a href="#%e6%96%87%e4%bb%b6%e5%a4%84%e7%90%86" class="header-mark"></a>文件处理</h2><p>Telegram消息主要的文件类型为：<code>animation</code>、<code>audio</code>、<code>document</code>、<code>photo</code>、<code>sticker</code>、<code>video</code>、<code>video_note</code>、<code>voice</code>，这些文件类型都有对应的<code>file_id</code>，通过id可以获取文件的下载链接。</p>
 <p>获取id:</p>
@@ -447,7 +489,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础" data-hashtags="Python,Telegram"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Pocket" data-sharer="pocket" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础" data-hashtags="Python,Telegram"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Pocket" data-sharer="pocket" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://ftbom.github.io/basic_of_pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -496,7 +538,7 @@
             gtag('config', 'G-JB9XJ8P26X', { 'anonymize_ip': true });
         </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-JB9XJ8P26X" async></script></div>
 
-<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"giscus":{"darkTheme":"dark","dataCategory":"General","dataCategoryId":"DIC_kwDOG14lhs4CTbjq","dataEmitMetadata":"0","dataInputPosition":"top","dataLang":"zh-CN","dataMapping":"title","dataReactionsEnabled":"1","dataRepo":"Ftbom/ftbom.github.io","dataRepoId":"R_kgDOG14lhg","dataStrict":"0","lightTheme":"light"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":100,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"twemoji":true};</script><script type="text/javascript" src="/js/giscus.min.js" defer></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js" defer></script><script type="text/javascript" src="/js/twemoji.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"giscus":{"darkTheme":"dark","dataCategory":"General","dataCategoryId":"DIC_kwDOG14lhs4CTbjq","dataEmitMetadata":"0","dataInputPosition":"top","dataLang":"zh-CN","dataMapping":"title","dataReactionsEnabled":"1","dataRepo":"Ftbom/ftbom.github.io","dataRepoId":"R_kgDOG14lhg","dataStrict":"0","lightTheme":"light"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":100,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"twemoji":true};</script><script type="text/javascript" src="/js/giscus.min.js" defer></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js" defer></script><script type="text/javascript" src="/js/twemoji.min.js" defer></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
         <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
 </body>
 

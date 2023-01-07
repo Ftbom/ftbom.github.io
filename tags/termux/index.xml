@@ -10,9 +10,9 @@
     <pubDate>Tue, 03 Jan 2023 12:41:00 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/lanraragi_in_termux/</guid>
-    <description><![CDATA[<p style="text-align: center;">
+    <description><![CDATA[<div style="text-align: center;">
     
-</p>
+</div>
 <p><a href="https://github.com/Difegue/LANraragi" target="_blank" rel="noopener noreferrer">LANraragi</a>是开源的漫画管理服务器，开发者提供了多种安装方式供选择。本文介绍如何在Termux中安装LANraragi，实现对Android手机内的漫画进行管理。</p>
 <h2 id="安装termux及ubuntu发行版" class="headerLink">
     <a href="#%e5%ae%89%e8%a3%85termux%e5%8f%8aubuntu%e5%8f%91%e8%a1%8c%e7%89%88" class="header-mark"></a>安装Termux及Ubuntu发行版</h2><p><a href="https://termux.dev" target="_blank" rel="noopener noreferrer">Termux</a>是Android系统上的一个高级终端模拟器，可以运行很多Linux系统的软件，还可通过proot安装各种Linux系统发行版。推荐通过Github安装Termux软件。</p>

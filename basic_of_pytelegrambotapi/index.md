@@ -1,9 +1,9 @@
 # pyTelegramBotAPI基础
 
 
-<p style="text-align: center;">
+<div style="text-align: center;">
     <img src="/blog_images/python_telegram.png" alt="python_telegram.png">
-</p>
+</div>
 
 {{< admonition warning "pyTelegramBotAPI版本" >}}
 pyTelegramBotAPI 4.8.0
@@ -54,9 +54,9 @@ bot.infinity_polling()
 
 上述代码的运行效果如下：
 
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_1.png" alt="pytelegrambotapi_1.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/pytelegrambotapi_1.png" alt="pytelegrambotapi_1.png" >}}
+</div>
 
 ## 编辑消息
 
@@ -92,9 +92,9 @@ bot.infinity_polling()
 
 上述代码的运行效果如下：
 
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_2.png" alt="pytelegrambotapi_2.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/pytelegrambotapi_2.png" alt="pytelegrambotapi_2.png" >}}
+</div>
 
 ## 消息按键
 
@@ -125,17 +125,17 @@ bot.infinity_polling()
 
 当输入`/test`，机器人的运行结果为：
 
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_3.png" alt="pytelegrambotapi_3.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/pytelegrambotapi_3.png" alt="pytelegrambotapi_3.png" >}}
+</div>
 
 若将`reply_markup`的值设为`ReplyKeyboardRemove`，按键会在发送该消息后消失，否则按键不会消失。
 
 运行效果为：
 
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_4.png" alt="pytelegrambotapi_4.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/pytelegrambotapi_4.png" alt="pytelegrambotapi_4.png" >}}
+</div>
 
 ### InlineKeyboard
 
@@ -171,17 +171,17 @@ bot.infinity_polling()
 
 上述代码定义的`InlineKeyboard`样式为：
 
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_5.png" alt="pytelegrambotapi_5.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/pytelegrambotapi_5.png" alt="pytelegrambotapi_5.png" >}}
+</div>
 
 通过`@bot.callback_query_handler`函数修饰符对`callback_data`处理，`call.data`对应`callback_data`。再按下按键后，按键上会出现进度标志，通过调用`answer_callback_query`可以消去进度标志。
 
 上述代码，按下test1按钮后，结果为：
 
-<p style="text-align: center;">
-    <img src="/blog_images/pytelegrambotapi_6.png" alt="pytelegrambotapi_6.png">
-</p>
+<div style="text-align: center;">
+{{< image src="/blog_images/pytelegrambotapi_6.png" alt="pytelegrambotapi_6.png" >}}
+</div>
 
 ## 文件处理
 

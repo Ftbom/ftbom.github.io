@@ -10,9 +10,9 @@
     <pubDate>Wed, 04 Jan 2023 09:07:21 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/basic_of_pytelegrambotapi/</guid>
-    <description><![CDATA[<p style="text-align: center;">
+    <description><![CDATA[<div style="text-align: center;">
     
-</p>
+</div>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw"></i>pyTelegramBotAPI版本<i class="details-icon fas fa-angle-right fa-fw"></i>
@@ -84,9 +84,11 @@
 </div>
 </div><p><code>send_message</code>函数传入的第一个参数是当前对话的id，第二个参数是发送消息的内容。通过<code>parse_mode</code>可以设置消息内容的格式。</p>
 <p>上述代码的运行效果如下：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_1.png" title="pytelegrambotapi_1.png" data-thumbnail="/blog_images/pytelegrambotapi_1.png">
+        
+    </a>
+</div>
 <h2 id="编辑消息" class="headerLink">
     <a href="#%e7%bc%96%e8%be%91%e6%b6%88%e6%81%af" class="header-mark"></a>编辑消息</h2><p>编辑消息的函数为<code>edit_message_text</code>，使用实例如下：</p>
 <div class="highlight"><div class="chroma">
@@ -134,9 +136,11 @@
 </div>
 </div><p>下一步操作将会在接收到用户输入后进行触发。</p>
 <p>上述代码的运行效果如下：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_2.png" title="pytelegrambotapi_2.png" data-thumbnail="/blog_images/pytelegrambotapi_2.png">
+        
+    </a>
+</div>
 <h2 id="消息按键" class="headerLink">
     <a href="#%e6%b6%88%e6%81%af%e6%8c%89%e9%94%ae" class="header-mark"></a>消息按键</h2><p>Telegram的消息按键有两种：<code>ReplyKeyboard</code>和<code>InlineKeyboard</code></p>
 <h3 id="replykeyboard" class="headerLink">
@@ -180,14 +184,18 @@
 </div>
 </div><p>在<code>ReplyKeyboardMarkup</code>初始化时将<code>resize_keyboard</code>设为<code>True</code>，则按键会自动调节到合适的高度。</p>
 <p>当输入<code>/test</code>，机器人的运行结果为：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_3.png" title="pytelegrambotapi_3.png" data-thumbnail="/blog_images/pytelegrambotapi_3.png">
+        
+    </a>
+</div>
 <p>若将<code>reply_markup</code>的值设为<code>ReplyKeyboardRemove</code>，按键会在发送该消息后消失，否则按键不会消失。</p>
 <p>运行效果为：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_4.png" title="pytelegrambotapi_4.png" data-thumbnail="/blog_images/pytelegrambotapi_4.png">
+        
+    </a>
+</div>
 <h3 id="inlinekeyboard" class="headerLink">
     <a href="#inlinekeyboard" class="header-mark"></a>InlineKeyboard</h3><p><code>InlineKeyboard</code>是在消息的下方带有按键，且可定义按键的类型，常用的按键类型为：</p>
 <ul>
@@ -239,14 +247,18 @@
 </div>
 </div><p><code>quick_markup</code>的<code>row_width</code>参数定义了同一行的最大按钮数量。</p>
 <p>上述代码定义的<code>InlineKeyboard</code>样式为：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_5.png" title="pytelegrambotapi_5.png" data-thumbnail="/blog_images/pytelegrambotapi_5.png">
+        
+    </a>
+</div>
 <p>通过<code>@bot.callback_query_handler</code>函数修饰符对<code>callback_data</code>处理，<code>call.data</code>对应<code>callback_data</code>。再按下按键后，按键上会出现进度标志，通过调用<code>answer_callback_query</code>可以消去进度标志。</p>
 <p>上述代码，按下test1按钮后，结果为：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/pytelegrambotapi_6.png" title="pytelegrambotapi_6.png" data-thumbnail="/blog_images/pytelegrambotapi_6.png">
+        
+    </a>
+</div>
 <h2 id="文件处理" class="headerLink">
     <a href="#%e6%96%87%e4%bb%b6%e5%a4%84%e7%90%86" class="header-mark"></a>文件处理</h2><p>Telegram消息主要的文件类型为：<code>animation</code>、<code>audio</code>、<code>document</code>、<code>photo</code>、<code>sticker</code>、<code>video</code>、<code>video_note</code>、<code>voice</code>，这些文件类型都有对应的<code>file_id</code>，通过id可以获取文件的下载链接。</p>
 <p>获取id:</p>

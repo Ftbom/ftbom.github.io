@@ -10,9 +10,9 @@
     <pubDate>Thu, 05 Jan 2023 18:02:08 &#43;0800</pubDate><author>
         <name>Ftbom</name>
     </author><guid>https://ftbom.github.io/get_disqus_notifications_by_telegram_bot/</guid>
-    <description><![CDATA[<p style="text-align: center;">
+    <description><![CDATA[<div style="text-align: center;">
     
-</p>
+</div>
 <p>之前博客的评论系统用的是<a href="https://valine.js.org/" target="_blank" rel="noopener noreferrer">Valine</a>，最近发现不能用了，原来是LeanCloud限制长时间不使用自动冻结应用。为了省事，把博客的评论系统切换到了<a href="https://disqus.com/" target="_blank" rel="noopener noreferrer">Disqus</a>。</p>
 <p>Disqus提供了新评论通知的功能，但是只支持邮件通知、网页通知和Rss订阅三种方式。我并不想每次有新评论都收到邮件，Rss订阅又只支持订阅单个话题，于是就想找到通过Telegram收到新评论通知的方法。</p>
 <p>最终通过<a href="https://zapier.com" target="_blank" rel="noopener noreferrer">Zapier</a>实现了通过Telegram收到Disqus新评论通知的功能。</p>
@@ -36,30 +36,40 @@
 <h2 id="待审批的新评论" class="headerLink">
     <a href="#%e5%be%85%e5%ae%a1%e6%89%b9%e7%9a%84%e6%96%b0%e8%af%84%e8%ae%ba" class="header-mark"></a>待审批的新评论</h2><h3 id="设置触发器" class="headerLink">
     <a href="#%e8%ae%be%e7%bd%ae%e8%a7%a6%e5%8f%91%e5%99%a8" class="header-mark"></a>设置触发器</h3><p>首先创建新的Zap，Trigger中的App event选择Disqus连接器，然后Event选择为New Comment。如图所示：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/disqus_telegram1.png" title="disqus_telegram1.png" data-thumbnail="/blog_images/disqus_telegram1.png">
+        
+    </a>
+</div>
 <p>点击Continue，授权Disqus账户，授权后如图所示：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/disqus_telegram2.png" title="disqus_telegram2.png" data-thumbnail="/blog_images/disqus_telegram2.png">
+        
+    </a>
+</div>
 <p>继续设置trigger，include选择Unapproved Posts，Forum选择要获取新评论通知的网站，如图所示：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/disqus_telegram3.png" title="disqus_telegram3.png" data-thumbnail="/blog_images/disqus_telegram3.png">
+        
+    </a>
+</div>
 <p>继续向下，测试trigger，获取网站上的待审批评论的数据。若网站尚未有评论，先自行在网站上发一条评论。</p>
 <blockquote>
 <p>匿名评论一般是待审批评论</p>
 </blockquote>
 <h3 id="设置响应动作" class="headerLink">
     <a href="#%e8%ae%be%e7%bd%ae%e5%93%8d%e5%ba%94%e5%8a%a8%e4%bd%9c" class="header-mark"></a>设置响应动作</h3><p>设置Zap的Action，App event选择Code by Zapier，Event选择Run Javascript，如图所示：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/disqus_telegram4.png" title="disqus_telegram4.png" data-thumbnail="/blog_images/disqus_telegram4.png">
+        
+    </a>
+</div>
 <p>Set up action中Input Data设置如下图：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/disqus_telegram5.png" title="disqus_telegram5.png" data-thumbnail="/blog_images/disqus_telegram5.png">
+        
+    </a>
+</div>
 <p><code>tg_token</code>和<code>tg_chatid</code>分别填入准备工作中获取的token和id。</p>
 <p>在Set up action的Code中填入以下代码：</p>
 <div class="highlight"><div class="chroma">
@@ -135,16 +145,21 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>继续向下，点击Test action可以进行测试，接收待审核评论的消息效果如图：</p>
-<p style="text-align: center;">
-    
-</p>
+<div style="text-align: center;">
+<a class="lightgallery" href="/blog_images/disqus_telegram6.png" title="disqus_telegram6.png" data-thumbnail="/blog_images/disqus_telegram6.png">
+        
+    </a>
+</div>
 <h2 id="已审批通过的新评论" class="headerLink">
     <a href="#%e5%b7%b2%e5%ae%a1%e6%89%b9%e9%80%9a%e8%bf%87%e7%9a%84%e6%96%b0%e8%af%84%e8%ae%ba" class="header-mark"></a>已审批/通过的新评论</h2><p>创建一个新的Zap，设置步骤与待审批的新评论设置类似，仅在某些部分有一些更改：</p>
 <ul>
 <li>设置trigger时include改为选择Approved Posts；</li>
-<li>Set up action中Input Data设置如下图，<code>admin_url</code>设置为Disqus用户主页的链接，如：<code>https://disqus.com/by/Ftbom/</code>
-<p style="text-align: center;"></p>
-</li>
+<li>Set up action中Input Data设置如下图，<code>admin_url</code>设置为Disqus用户主页的链接，如：<code>https://disqus.com/by/Ftbom/</code></li>
+</ul>
+<div style="text-align: center;"><a class="lightgallery" href="/blog_images/disqus_telegram7.png" title="disqus_telegram7.png" data-thumbnail="/blog_images/disqus_telegram7.png">
+        
+    </a></div>
+<ul>
 <li>Set up action的Code中填入的代码改为：</li>
 </ul>
 <div class="highlight"><div class="chroma">
