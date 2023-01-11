@@ -6,10 +6,10 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
             <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Thu, 05 Jan 2023 18:02:08 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
     <title>借助Zapier将Disqus通知推送到Telegram机器人</title>
-    <link>https://ftbom.github.io/get_disqus_notifications_by_telegram_bot/</link>
+    <link>https://ftbom.github.io/get-disqus-notifications-by-telegram-bot/</link>
     <pubDate>Thu, 05 Jan 2023 18:02:08 &#43;0800</pubDate><author>
         <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/get_disqus_notifications_by_telegram_bot/</guid>
+    </author><guid>https://ftbom.github.io/get-disqus-notifications-by-telegram-bot/</guid>
     <description><![CDATA[<div style="text-align: center;">
     
 </div>
@@ -250,10 +250,10 @@
 ]]></description>
 </item><item>
     <title>pyTelegramBotAPI基础</title>
-    <link>https://ftbom.github.io/basic_of_pytelegrambotapi/</link>
+    <link>https://ftbom.github.io/basic-of-pytelegrambotapi/</link>
     <pubDate>Wed, 04 Jan 2023 09:07:21 &#43;0800</pubDate><author>
         <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/basic_of_pytelegrambotapi/</guid>
+    </author><guid>https://ftbom.github.io/basic-of-pytelegrambotapi/</guid>
     <description><![CDATA[<div style="text-align: center;">
     
 </div>
@@ -530,10 +530,10 @@
 ]]></description>
 </item><item>
     <title>LANraragi插件小记</title>
-    <link>https://ftbom.github.io/lanraragi_plugins/</link>
+    <link>https://ftbom.github.io/lanraragi-plugins/</link>
     <pubDate>Tue, 03 Jan 2023 16:20:52 &#43;0800</pubDate><author>
         <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/lanraragi_plugins/</guid>
+    </author><guid>https://ftbom.github.io/lanraragi-plugins/</guid>
     <description><![CDATA[<div style="text-align: center;">
     
 </div>
@@ -1130,10 +1130,10 @@ TagFolder定义插件的设置项是string类型，获取输入字符；Topfolde
 </div>]]></description>
 </item><item>
     <title>在Termux中安装LANraragi</title>
-    <link>https://ftbom.github.io/lanraragi_in_termux/</link>
+    <link>https://ftbom.github.io/lanraragi-in-termux/</link>
     <pubDate>Tue, 03 Jan 2023 12:41:00 &#43;0800</pubDate><author>
         <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/lanraragi_in_termux/</guid>
+    </author><guid>https://ftbom.github.io/lanraragi-in-termux/</guid>
     <description><![CDATA[<div style="text-align: center;">
     
 </div>
@@ -1282,10 +1282,10 @@ TagFolder定义插件的设置项是string类型，获取输入字符；Topfolde
 ]]></description>
 </item><item>
     <title>Julia脚本文件中使用Plots绘图</title>
-    <link>https://ftbom.github.io/julia_plot_in_file/</link>
+    <link>https://ftbom.github.io/julia-plot-in-file/</link>
     <pubDate>Fri, 25 Feb 2022 20:33:38 &#43;0800</pubDate><author>
         <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/julia_plot_in_file/</guid>
+    </author><guid>https://ftbom.github.io/julia-plot-in-file/</guid>
     <description><![CDATA[<div style="text-align: center;">
     
 </div>

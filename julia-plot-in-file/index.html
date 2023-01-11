@@ -5,24 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">交换友链 - Ftbom&#39;s Blog</title><meta name="Description" content="记录与分享"><meta property="og:title" content="交换友链" />
-<meta property="og:description" content="友链格式： 1 2 3 4 name=&#34;&#34; url=&#34;&#34; logo=&#34;&#34; word=&#34;&#34; 示例： 1 2 3 4 name=&#34;Ftbom&#39;s Blog&#34; url=&#34;https://ftbom.github.io&#34; logo=&#34;https://ftbom.github.io/images/avatar.png&#34; word=&#34;浮名浮利，虚苦劳神&#34;" />
+    <title class="pjax-title">Julia脚本文件中使用Plots绘图 - Ftbom&#39;s Blog</title><meta name="Description" content="记录与分享"><meta property="og:title" content="Julia脚本文件中使用Plots绘图" />
+<meta property="og:description" content="Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。 Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ftbom.github.io/request-a-friend-link/" /><meta property="og:image" content="https://ftbom.github.io/images/cover.png"/><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="https://ftbom.github.io/julia-plot-in-file/" /><meta property="og:image" content="https://ftbom.github.io/images/cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-25T20:33:38+08:00" />
+<meta property="article:modified_time" content="2022-02-25T20:33:38+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ftbom.github.io/images/cover.png"/>
 
-<meta name="twitter:title" content="交换友链"/>
-<meta name="twitter:description" content="友链格式： 1 2 3 4 name=&#34;&#34; url=&#34;&#34; logo=&#34;&#34; word=&#34;&#34; 示例： 1 2 3 4 name=&#34;Ftbom&#39;s Blog&#34; url=&#34;https://ftbom.github.io&#34; logo=&#34;https://ftbom.github.io/images/avatar.png&#34; word=&#34;浮名浮利，虚苦劳神&#34;"/>
+<meta name="twitter:title" content="Julia脚本文件中使用Plots绘图"/>
+<meta name="twitter:description" content="Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。 Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作"/>
 <meta name="application-name" content="Ftbom&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Ftbom&#39;s Blog">
 
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ftbom.github.io/request-a-friend-link/" /><link rel="prev" href="https://ftbom.github.io/friend/" /><link rel="next" href="https://ftbom.github.io/offline/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ftbom.github.io/julia-plot-in-file/" /><link rel="next" href="https://ftbom.github.io/lanraragi-in-termux/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript>
     
@@ -32,13 +32,13 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "交换友链",
+        "headline": "Julia脚本文件中使用Plots绘图",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/ftbom.github.io\/request-a-friend-link\/"
-        },"genre": "page","wordcount":  48 ,
-        "url": "https:\/\/ftbom.github.io\/request-a-friend-link\/","publisher": {
+            "@id": "https:\/\/ftbom.github.io\/julia-plot-in-file\/"
+        },"genre": "posts","keywords": "Julia","wordcount":  669 ,
+        "url": "https:\/\/ftbom.github.io\/julia-plot-in-file\/","datePublished": "2022-02-25T20:33:38+08:00","dateModified": "2022-02-25T20:33:38+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -128,39 +128,130 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-            <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">交换友链</h1><div class="content" id="content"><p>友链格式：</p>
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#在repl中运行脚本文件">在REPL中运行脚本文件</a></li>
+    <li><a href="#使用julia-pathtoscriptjl运行脚本文件">使用<code>julia path/to/script.jl</code>运行脚本文件</a></li>
+    <li><a href="#使用vscode插件julia运行脚本文件">使用VScode插件Julia运行脚本文件</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Julia脚本文件中使用Plots绘图</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Ftbom</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-25">2022-02-25</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-02-25">2022-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 669 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#在repl中运行脚本文件">在REPL中运行脚本文件</a></li>
+    <li><a href="#使用julia-pathtoscriptjl运行脚本文件">使用<code>julia path/to/script.jl</code>运行脚本文件</a></li>
+    <li><a href="#使用vscode插件julia运行脚本文件">使用VScode插件Julia运行脚本文件</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><div class="details admonition warning open">
+                <div class="details-summary admonition-title">
+                    <i class="icon fas fa-exclamation-triangle fa-fwwarning"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+                </div>
+                <div class="details-content">
+                    <div class="admonition-content">
+                        本文最后更新于 <span class="timeago" datetime="2022-02-25T20:33:38" title="February 25, 2022">2022-02-25</span>，文中内容可能已过时。</div>
+                </div>
+            </div><div style="text-align: center;">
+    <img src="/blog_images/julia.png" alt="julia.png">
+</div>
+<p>Julia是一种高级通用动态编程语言，可以用于数值分析和科学计算等。</p>
+<p>Julia语言没有内建的作图能力，作图需要通过安装扩展包来实现，常用的作图包有Gadfly、Plots和PyPlot。</p>
+<p>本文介绍如何在Julia脚本文件中使用Plots进行绘图并正常显示绘图结果。</p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>Julia和Plots版本<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Julia v1.7.2</p>
+<p>Plots v1.25.11</p>
+</div>
+        </div>
+    </div>
+<h2 id="在repl中运行脚本文件" class="headerLink">
+    <a href="#%e5%9c%a8repl%e4%b8%ad%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>在REPL中运行脚本文件</h2><p>在REPL中，Julia会对每个变量自动调用<code>display</code>函数进行显示。在REPL中直接使用<code>plot</code>函数可以正常显示绘图的结果。</p>
+<p>本文的主要目的是使用脚本文件进行绘图，在REPL中运行脚本文件的命令为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">include</span><span class="p">(</span><span class="s">&#34;path/to/script.jl&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用julia-pathtoscriptjl运行脚本文件" class="headerLink">
+    <a href="#%e4%bd%bf%e7%94%a8julia-pathtoscriptjl%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用<code>julia path/to/script.jl</code>运行脚本文件</h2><p>如果不在REPL中运行脚本文件时，Julia不会自动调用<code>display</code>函数。</p>
+<p>为了显示绘图结果，需要<a href="https://docs.juliaplots.org/latest/tutorial/#Plotting-in-Scripts" target="_blank" rel="noopener noreferrer">在代码中调用<code>display</code>函数</a>。</p>
+<p>但是，使用<code>julia path/to/script.jl</code>运行脚本文件时，程序会在文件中所有语句执行完毕后自动退出，这样就看不到绘图结果。</p>
+<p>为了防止Julia执行完所有语句后退出，可以在脚本文件的末尾使用<code>readline</code>函数。</p>
+<p>这种运行方式下需将代码做如下更改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改为</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">name=&#34;&#34;
-</span></span><span class="line"><span class="cl">url=&#34;&#34;
-</span></span><span class="line"><span class="cl">logo=&#34;&#34;
-</span></span><span class="line"><span class="cl">word=&#34;&#34;
+<pre tabindex="0" class="chroma"><code class="language-julia" data-lang="julia"><span class="line"><span class="cl"><span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">readline</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">name=&#34;Ftbom&#39;s Blog&#34;
-</span></span><span class="line"><span class="cl">url=&#34;https://ftbom.github.io&#34;
-</span></span><span class="line"><span class="cl">logo=&#34;https://ftbom.github.io/images/avatar.png&#34;
-</span></span><span class="line"><span class="cl">word=&#34;浮名浮利，虚苦劳神&#34;
-</span></span></code></pre></td></tr></table>
+</div><p>然后终端运行<code>julia path/to/script.jl</code>即可得到绘图结果。</p>
+<h2 id="使用vscode插件julia运行脚本文件" class="headerLink">
+    <a href="#%e4%bd%bf%e7%94%a8vscode%e6%8f%92%e4%bb%b6julia%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6" class="header-mark"></a>使用VScode插件Julia运行脚本文件</h2><p>使用Julia插件运行代码时，会自动将绘图结果显示在一个新的标签栏中，于是直接使用<code>plot</code>函数就可以得到绘图结果。</p>
+<p>需要注意的是：<strong>在VScode中不可使用Code Runner插件来运行脚本文件，而要使用Julia插件来运行脚本文件</strong>。</p>
 </div>
-</div></div><div id="comments"><div id="giscus"></div><noscript>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://ftbom.github.io/julia-plot-in-file/" data-title="Julia脚本文件中使用Plots绘图" data-hashtags="Julia"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://ftbom.github.io/julia-plot-in-file/" data-hashtag="Julia"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://ftbom.github.io/julia-plot-in-file/" data-title="Julia脚本文件中使用Plots绘图" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://ftbom.github.io/julia-plot-in-file/" data-title="Julia脚本文件中使用Plots绘图"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Pocket" data-sharer="pocket" data-url="https://ftbom.github.io/julia-plot-in-file/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://ftbom.github.io/julia-plot-in-file/" data-title="Julia脚本文件中使用Plots绘图"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://ftbom.github.io/julia-plot-in-file/" data-title="Julia脚本文件中使用Plots绘图"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/julia/">Julia</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/lanraragi-in-termux/" class="next" rel="next" title="在Termux中安装LANraragi">在Termux中安装LANraragi<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="giscus"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://giscus.app/">giscus</a>.
-            </noscript></div></div></div>
+            </noscript></div></article></div>
         </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">
                     由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>

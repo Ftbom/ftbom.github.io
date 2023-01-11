@@ -1,17 +1,180 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Python - 标签 - Ftbom&#39;s Blog</title>
-        <link>https://ftbom.github.io/tags/python/</link>
-        <description>Python - 标签 - Ftbom&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
-            <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Wed, 04 Jan 2023 09:07:21 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/tags/python/" rel="self" type="application/rss+xml" /><item>
-    <title>pyTelegramBotAPI基础</title>
-    <link>https://ftbom.github.io/basic-of-pytelegrambotapi/</link>
-    <pubDate>Wed, 04 Jan 2023 09:07:21 &#43;0800</pubDate><author>
-        <name>Ftbom</name>
-    </author><guid>https://ftbom.github.io/basic-of-pytelegrambotapi/</guid>
-    <description><![CDATA[<div style="text-align: center;">
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">pyTelegramBotAPI基础 - Ftbom&#39;s Blog</title><meta name="Description" content="记录与分享"><meta property="og:title" content="pyTelegramBotAPI基础" />
+<meta property="og:description" content="pyTelegramBotAPI版本 pyTelegramBotAPI 4.8.0 pyTelegramBotAPI是用于开发Telegram机器人的Python库，使用简单，上手较快" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ftbom.github.io/basic-of-pytelegrambotapi/" /><meta property="og:image" content="https://ftbom.github.io/images/cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-04T09:07:21+08:00" />
+<meta property="article:modified_time" content="2023-01-04T09:07:21+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ftbom.github.io/images/cover.png"/>
+
+<meta name="twitter:title" content="pyTelegramBotAPI基础"/>
+<meta name="twitter:description" content="pyTelegramBotAPI版本 pyTelegramBotAPI 4.8.0 pyTelegramBotAPI是用于开发Telegram机器人的Python库，使用简单，上手较快"/>
+<meta name="application-name" content="Ftbom&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Ftbom&#39;s Blog">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ftbom.github.io/basic-of-pytelegrambotapi/" /><link rel="prev" href="https://ftbom.github.io/lanraragi-plugins/" /><link rel="next" href="https://ftbom.github.io/get-disqus-notifications-by-telegram-bot/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript>
     
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "pyTelegramBotAPI基础",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ftbom.github.io\/basic-of-pytelegrambotapi\/"
+        },"genre": "posts","keywords": "Python, Telegram","wordcount":  1541 ,
+        "url": "https:\/\/ftbom.github.io\/basic-of-pytelegrambotapi\/","datePublished": "2023-01-04T09:07:21+08:00","dateModified": "2023-01-04T09:07:21+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ftbom"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Ftbom&#39;s Blog">Ftbom&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friend/"> 友链 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="切换主题">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="black">黑色</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Ftbom&#39;s Blog">Ftbom&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friend/" title="">友链</a><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="切换主题">
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                    <option value="black">黑色</option>
+                    <option value="auto">跟随系统</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本部分">基本部分</a></li>
+    <li><a href="#绑定命令">绑定命令</a></li>
+    <li><a href="#编辑消息">编辑消息</a></li>
+    <li><a href="#定义下一步">定义下一步</a></li>
+    <li><a href="#消息按键">消息按键</a>
+      <ul>
+        <li><a href="#replykeyboard">ReplyKeyboard</a></li>
+        <li><a href="#inlinekeyboard">InlineKeyboard</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件处理">文件处理</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">pyTelegramBotAPI基础</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Ftbom</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-01-04">2023-01-04</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2023-01-04">2023-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1541 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本部分">基本部分</a></li>
+    <li><a href="#绑定命令">绑定命令</a></li>
+    <li><a href="#编辑消息">编辑消息</a></li>
+    <li><a href="#定义下一步">定义下一步</a></li>
+    <li><a href="#消息按键">消息按键</a>
+      <ul>
+        <li><a href="#replykeyboard">ReplyKeyboard</a></li>
+        <li><a href="#inlinekeyboard">InlineKeyboard</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件处理">文件处理</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><div style="text-align: center;">
+    <img src="/blog_images/python_telegram.png" alt="python_telegram.png">
 </div>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
@@ -86,7 +249,12 @@
 <p>上述代码的运行效果如下：</p>
 <div style="text-align: center;">
 <a class="lightgallery" href="/blog_images/pytelegrambotapi_1.png" title="pytelegrambotapi_1.png" data-thumbnail="/blog_images/pytelegrambotapi_1.png">
-        
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_1.png"
+            data-srcset="/blog_images/pytelegrambotapi_1.png, /blog_images/pytelegrambotapi_1.png 1.5x, /blog_images/pytelegrambotapi_1.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_1.png">
     </a>
 </div>
 <h2 id="编辑消息" class="headerLink">
@@ -138,7 +306,12 @@
 <p>上述代码的运行效果如下：</p>
 <div style="text-align: center;">
 <a class="lightgallery" href="/blog_images/pytelegrambotapi_2.png" title="pytelegrambotapi_2.png" data-thumbnail="/blog_images/pytelegrambotapi_2.png">
-        
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_2.png"
+            data-srcset="/blog_images/pytelegrambotapi_2.png, /blog_images/pytelegrambotapi_2.png 1.5x, /blog_images/pytelegrambotapi_2.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_2.png">
     </a>
 </div>
 <h2 id="消息按键" class="headerLink">
@@ -186,14 +359,24 @@
 <p>当输入<code>/test</code>，机器人的运行结果为：</p>
 <div style="text-align: center;">
 <a class="lightgallery" href="/blog_images/pytelegrambotapi_3.png" title="pytelegrambotapi_3.png" data-thumbnail="/blog_images/pytelegrambotapi_3.png">
-        
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_3.png"
+            data-srcset="/blog_images/pytelegrambotapi_3.png, /blog_images/pytelegrambotapi_3.png 1.5x, /blog_images/pytelegrambotapi_3.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_3.png">
     </a>
 </div>
 <p>若将<code>reply_markup</code>的值设为<code>ReplyKeyboardRemove</code>，按键会在发送该消息后消失，否则按键不会消失。</p>
 <p>运行效果为：</p>
 <div style="text-align: center;">
 <a class="lightgallery" href="/blog_images/pytelegrambotapi_4.png" title="pytelegrambotapi_4.png" data-thumbnail="/blog_images/pytelegrambotapi_4.png">
-        
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_4.png"
+            data-srcset="/blog_images/pytelegrambotapi_4.png, /blog_images/pytelegrambotapi_4.png 1.5x, /blog_images/pytelegrambotapi_4.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_4.png">
     </a>
 </div>
 <h3 id="inlinekeyboard" class="headerLink">
@@ -249,14 +432,24 @@
 <p>上述代码定义的<code>InlineKeyboard</code>样式为：</p>
 <div style="text-align: center;">
 <a class="lightgallery" href="/blog_images/pytelegrambotapi_5.png" title="pytelegrambotapi_5.png" data-thumbnail="/blog_images/pytelegrambotapi_5.png">
-        
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_5.png"
+            data-srcset="/blog_images/pytelegrambotapi_5.png, /blog_images/pytelegrambotapi_5.png 1.5x, /blog_images/pytelegrambotapi_5.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_5.png">
     </a>
 </div>
 <p>通过<code>@bot.callback_query_handler</code>函数修饰符对<code>callback_data</code>处理，<code>call.data</code>对应<code>callback_data</code>。再按下按键后，按键上会出现进度标志，通过调用<code>answer_callback_query</code>可以消去进度标志。</p>
 <p>上述代码，按下test1按钮后，结果为：</p>
 <div style="text-align: center;">
 <a class="lightgallery" href="/blog_images/pytelegrambotapi_6.png" title="pytelegrambotapi_6.png" data-thumbnail="/blog_images/pytelegrambotapi_6.png">
-        
+        <img
+            class="lazyload"
+            data-src="/blog_images/pytelegrambotapi_6.png"
+            data-srcset="/blog_images/pytelegrambotapi_6.png, /blog_images/pytelegrambotapi_6.png 1.5x, /blog_images/pytelegrambotapi_6.png 2x"
+            data-sizes="auto"
+            alt="pytelegrambotapi_6.png">
     </a>
 </div>
 <h2 id="文件处理" class="headerLink">
@@ -283,6 +476,70 @@
 <p>在这些文件类型中，<code>photo</code>类型有所不同，其返回值是一个数组，数组的每个元素对应不同的分辨率。</p>
 <h2 id="结语" class="headerLink">
     <a href="#%e7%bb%93%e8%af%ad" class="header-mark"></a>结语</h2><p>这篇文章中记录的是pyTelegramBotAPI的基本用法，也是我在项目<a href="https://github.com/Ftbom/mypybot" target="_blank" rel="noopener noreferrer">mypybot</a>中用到的主要API内容。</p>
-]]></description>
-</item></channel>
-</rss>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-01-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/" data-title="pyTelegramBotAPI基础" data-hashtags="Python,Telegram"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/" data-title="pyTelegramBotAPI基础" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Pocket" data-sharer="pocket" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://ftbom.github.io/basic-of-pytelegrambotapi/" data-title="pyTelegramBotAPI基础"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/telegram/">Telegram</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/lanraragi-plugins/" class="prev" rel="prev" title="LANraragi插件小记"><i class="fas fa-angle-left fa-fw"></i>LANraragi插件小记</a>
+            <a href="/get-disqus-notifications-by-telegram-bot/" class="next" rel="next" title="借助Zapier将Disqus通知推送到Telegram机器人">借助Zapier将Disqus通知推送到Telegram机器人<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="giscus"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app/">giscus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Ftbom</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div><script>
+                    if('serviceWorker' in navigator) {
+                        navigator.serviceWorker
+                            .register('/sw.min.js', { scope: '/' })
+                            .then(function(registration) {
+                            });
+                
+                        navigator.serviceWorker
+                            .ready
+                            .then(function(registration) {
+                            });
+                    }
+                </script></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-JB9XJ8P26X', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-JB9XJ8P26X" async></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"giscus":{"darkTheme":"dark","dataCategory":"General","dataCategoryId":"DIC_kwDOG14lhs4CTbjq","dataEmitMetadata":"0","dataInputPosition":"top","dataLang":"zh-CN","dataMapping":"title","dataReactionsEnabled":"1","dataRepo":"Ftbom/ftbom.github.io","dataRepoId":"R_kgDOG14lhg","dataStrict":"0","lightTheme":"light"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":100,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"twemoji":true};</script><script type="text/javascript" src="/js/giscus.min.js" defer></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js" defer></script><script type="text/javascript" src="/js/twemoji.min.js" defer></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>
