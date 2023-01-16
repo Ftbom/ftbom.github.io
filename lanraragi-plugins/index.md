@@ -35,8 +35,8 @@ LANraragi中并不存在实现上述功能的插件，于是我就参照已有�
 
 * TagFolder.pm(插件)
 >将文件所属的文件夹名作为漫画的tag
-* TopfolderCat.pm(脚本)
->将文件所属的顶层文件夹名作为漫画的category
+* FolderToCat.pm(脚本)
+>将文件所属的文件夹名作为漫画的category，可选是否使用顶层文件夹
 
 ### TagFolder.pm
 
@@ -49,6 +49,8 @@ LANraragi中并不存在实现上述功能的插件，于是我就参照已有�
 使用说明：
 * Plugin Settings设置tag的类别，如图中所示则最终tag效果为`artist: tagname`
 * 开启Run Automatically则自动对新添加的漫画运行插件
+
+下载地址：[TagFolder.pm](/others/TagFolder.pm)
 
 文件内容：
 
@@ -116,22 +118,24 @@ sub get_tags {
 1;
 ```
 
-### TopfolderCat.pm
+### FolderToCat.pm
 
 >参照Subfolders to Categories v.1.0 by Difegue 
 
 <div style="text-align: center;">
-{{< image src="/blog_images/TopfolderCat.png" alt="TopfolderCat.png" >}}
+{{< image src="/blog_images/FolderToCat.png" alt="FolderToCat.png" >}}
 </div>
 
 使用说明：
 * 点击Trigger Script运行脚本
-* Plugin Settings设置是否先删除已有的类型
+* Plugin Settings可进行设置：是否删除已存在的类别和是否使用顶层文件夹
+
+下载地址：[FolderToCat.pm](/others/FolderToCat.pm)
 
 文件内容：
 
 ```perl
-package LANraragi::Plugin::Scripts::TopfolderCat;
+package LANraragi::Plugin::Scripts::FolderToCat;
 
 use strict;
 use warnings;
@@ -144,24 +148,23 @@ use LANraragi::Utils::Generic qw(is_archive);
 use LANraragi::Utils::Database qw(compute_id);
 use LANraragi::Model::Category;
 
-our $fatherdirname;
-
 #Meta-information about your plugin.
 sub plugin_info {
 
     return (
         #Standard metadata
-        name      => "Top Subfolders to Categories",
+        name      => "Subfolders to Categories",
         type      => "script",
-        namespace => "Tfldr2cat",
-        author    => "Ftbom",
+        namespace => "fldr2cat",
+        author    => "Difegue",
         version   => "1.0",
         icon =>
           "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAuJJREFUOI3FlE1sVFUUx3/nvVdaSqd0sAmElDYopOWjsKiEnYkLowU2uMGw0ajBhS5oqAtwo3FTaIQNCz7CBldEE01M+AglJMACUyBQrI6iQ2groNNxpjPz5n3MnXddvOnrfACNK09yk/fuved3//933j3wf8Thw6O6q6tHd3X16FOnTusX7ZW7I7H0kuUrV6hCtmHxt7UnOXHiDInEJAAzM49kscMtw2xesWHfKOTGASNa+GnmHfYP7gSgr28TY2PnF4UBWAD88Tlk7kFVyuDbX0ew43vzU/6bnc+12vnqx4OrX//i4gIQXS2uJkZGvqRXD3Q/V9LKXdjmSxcmjq7ahi6vtRazMKAHGua8oolbsHDyFk7iF4r/3IOyGl9QKI1u+vo2kUhMsmZ3T8Pa5c+E5vYYzbFWWkQTW23R+XKc+9/+eKUB+MbBHZWqhpW9MGSjtdDes57OzRtZ2hFD4tshcEAVkHIeVIapse8wDPNQxbKBDuDhxHKODd5myZ44698dBTQgUbEkex0CFzJXIfDC58CDwCP3Z1ZtPpAaD4FWnJIv2Nkm+j85AroE/jRoHwI/SgoBbt27h+54DS3je0VEh7VtimOnm2mKxRcguhpUDXvGUDb9bd3fh14rCtNPWuh9/6s6RfWq6mEetG0le/cb5KPbpajKActwChaIVNR5ddAqeLkCmt9TLjCbzEVFtQDstENTW0c4M58cJbiNsPmxtBs7eQ03p87VANP3J+n94CjiPKj76N4z7M4f6IPKk35YAFMORUCzpRU3/VdoV82BytUm+jMQlEArlBJmEyncORdnroTypxCRt7YMp5IRUBVzv/cPnV0n+VshyH8MgYuycyjHJjPt4GbyONki5VIAItfQnBeTG62YD1458DTF8EJXscSw1lEu4s0m8TJ/k/o5iZuZIygHlb+ZHwzkUoC+2T+cuiNSd08/re1qMjFa25YM5D0xjVtGe8fUhg9/zfMf41+ZdKPYI8TqHgAAAABJRU5ErkJggg==",
         description =>
-          "Scan your Content Folder and automatically create Static Categories for each top subfolder.",
+          "Scan your Content Folder and automatically create Static Categories for each subfolder.<br>This Script will create a category for each subfolder with archives as direct children.",
         parameters =>
-          [ { type => "bool", desc => "Delete all your static categories before creating the ones matching your subfolders" } ]
+          [ { type => "bool", desc => "Delete all your static categories before creating the ones matching your subfolders" },
+            { type => "bool", desc => "Create categories by the top level subfolder" }]
     );
 
 }
@@ -170,23 +173,22 @@ sub plugin_info {
 sub run_script {
     shift;
     my $lrr_info          = shift;
-    my ($delete_old_cats) = @_;
+    my ($delete_old_cats, $by_top_folder) = @_;
     my $logger            = get_logger( "Folder2Category", "plugins" );
     my $userdir           = LANraragi::Model::Config->get_userdir;
 
     my %subfolders;
     my @created_categories;
+    my $dirname;
 
     if ($delete_old_cats) {
         $logger->info("Deleting all Static Categories before folder walking as instructed.");
 
-        my @categories = LANraragi::Model::Category->get_category_list;
+        my @categories = LANraragi::Model::Category->get_static_category_list;
         for my $category (@categories) {
-            if ( %{$category}{"search"} eq "" ) {
-                my $cat_id = %{$category}{"id"};
-                $logger->debug("Deleting '$cat_id'");
-                LANraragi::Model::Category::delete_category($cat_id);
-            }
+            my $cat_id = %{$category}{"id"};
+            $logger->debug("Deleting '$cat_id'");
+            LANraragi::Model::Category::delete_category($cat_id);
         }
     }
 
@@ -194,16 +196,18 @@ sub run_script {
     find(
         {   wanted => sub {
                 return if $File::Find::dir eq $userdir;    # Direct children of the content dir are excluded
+				if (not($by_top_folder)) {
+                	$dirname = basename($File::Find::dir);
+                }
                 if ( is_archive($_) ) {
-                    unless ( exists( $subfolders{$fatherdirname} ) ) {
-                        $subfolders{$fatherdirname} = [];        # Create array in hash for this folder
+                    unless ( exists( $subfolders{$dirname} ) ) {
+                        $subfolders{$dirname} = [];        # Create array in hash for this folder
                     }
-                    push @{ $subfolders{$fatherdirname} }, $_;
+                    push @{ $subfolders{$dirname} }, $_;
                 }
-                else
-                {
-                    $fatherdirname = basename($File::Find::dir);
-                }
+                elsif ($by_top_folder) {
+                	$dirname = basename($File::Find::dir);
+                }	
             },
             no_chdir    => 1,
             follow_fast => 1
@@ -219,11 +223,13 @@ sub run_script {
         push @created_categories, $catID;
 
         for my $file ( @{ $subfolders{$folder} } ) {
-            my $id = compute_id($file) || next;
-            LANraragi::Model::Category::add_to_category( $catID, $id );
+            eval {
+                my $id = compute_id($file) || next;
+                LANraragi::Model::Category::add_to_category( $catID, $id );
+            };
         }
     }
-    #顶级目录名作分类名
+
     return ( created_categories => \@created_categories );
 
 }
@@ -235,10 +241,10 @@ sub run_script {
 
 简单分析一下这两个插件的代码，我并没有系统地学习过Perl语言，分析过程可能存在错误。
 
-`plugin_info`函数返回插件的基本信息；TagFolder是元数据插件，主体内容是`get_tags`函数；TopfolderCat是脚本，主体内容是`run_script`函数。
+`plugin_info`函数返回插件的基本信息；TagFolder是元数据插件，主体内容是`get_tags`函数；FolderToCat是脚本，主体内容是`run_script`函数。
 
 `plugin_info`函数的parameters返回值定义了插件的设置项，例如：
-TagFolder定义插件的设置项是string类型，获取输入字符；TopfolderCat定义插件的设置项是bool类型，获取开关的状态。
+TagFolder定义插件的设置项是string类型，获取输入字符；FolderToCat定义插件的设置项是bool类型，获取开关的状态。
 
 在主体函数中可以通过`@_`获取插件的设置值。
 
@@ -281,25 +287,27 @@ if (/\/([^\/]+)\/$/)
 return ( tags => $tagstring );
 ```
 
-### TopfolderCat.pm分析
+### FolderToCat.pm分析
 
-TopfolderCat.pm参照Subfolders to Categories，相较于参考文件改动较小，改动部分为：
+FolderToCat.pm仅在Subfolders to Categories的基础上做了一些小改动，改动部分主要为：
 
 ```perl
 return if $File::Find::dir eq $userdir;    # Direct children of the content dir are excluded
+if (not($by_top_folder)) {
+    $dirname = basename($File::Find::dir);
+}
 if ( is_archive($_) ) {
-    unless ( exists( $subfolders{$fatherdirname} ) ) {
-        $subfolders{$fatherdirname} = [];        # Create array in hash for this folder
+    unless ( exists( $subfolders{$dirname} ) ) {
+        $subfolders{$dirname} = [];        # Create array in hash for this folder
     }
-    push @{ $subfolders{$fatherdirname} }, $_;
+    push @{ $subfolders{$dirname} }, $_;
 }
-else
-{
-    $fatherdirname = basename($File::Find::dir);
-}
+elsif ($by_top_folder) {
+    $dirname = basename($File::Find::dir);
+}	
 ```
 
-这里假设文件目录结构为：
+这里假设文件目录结构为，且假设插件设置使用顶层文件夹：
 
 ```
 category1
@@ -319,23 +327,22 @@ category2
 return if $File::Find::dir eq $userdir;
 ```
 
-对于其他的文件和文件夹，如果是文件夹，即tag1、tag2等文件夹，则将其父目录的名称赋值给`fatherdirname`。即将categroy1、categroy2等赋值给`fatherdirname`:
+对于其他的文件和文件夹，如果是文件夹，即tag1、tag2等文件夹，则将其父目录的名称赋值给`dirname`。即将categroy1、categroy2等赋值给`dirname`:
 
 ```perl
-else
-{
-    $fatherdirname = basename($File::Find::dir);
+elsif ($by_top_folder) {
+    $dirname = basename($File::Find::dir);
 }
 ```
 
-如果是文件，若其路径中存在`fatherdirname`，则将其添加到对应数组。例如：mangafile1、mangafile2、mangafile3文件被添加到category1对应的数组：
+如果是文件，若其路径中存在`dirname`，则将其添加到对应数组。例如：mangafile1、mangafile2、mangafile3文件被添加到category1对应的数组：
 
 ```perl
 if ( is_archive($_) ) {
-    unless ( exists( $subfolders{$fatherdirname} ) ) {
-        $subfolders{$fatherdirname} = [];        # Create array in hash for this folder
+    unless ( exists( $subfolders{$dirname} ) ) {
+        $subfolders{$dirname} = [];        # Create array in hash for this folder
     }
-    push @{ $subfolders{$fatherdirname} }, $_;
+    push @{ $subfolders{$dirname} }, $_;
 }
 ```
 
@@ -344,11 +351,13 @@ if ( is_archive($_) ) {
 ```perl
 for my $folder ( keys %subfolders ) {
     my $catID = LANraragi::Model::Category::create_category( $folder, "", 0, "" );
-        push @created_categories, $catID;
+    push @created_categories, $catID;
 
-        for my $file ( @{ $subfolders{$folder} } ) {
+    for my $file ( @{ $subfolders{$folder} } ) {
+        eval {
             my $id = compute_id($file) || next;
             LANraragi::Model::Category::add_to_category( $catID, $id );
-        }
+        };
     }
+}
 ```
