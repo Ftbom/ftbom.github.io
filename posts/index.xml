@@ -4,7 +4,780 @@
         <link>https://ftbom.github.io/posts/</link>
         <description>所有文章 | Ftbom&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>lz490070@gmail.com (Ftbom)</managingEditor>
-            <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Thu, 05 Jan 2023 18:02:08 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>lz490070@gmail.com (Ftbom)</webMaster><lastBuildDate>Tue, 25 Jul 2023 15:36:18 &#43;0800</lastBuildDate><atom:link href="https://ftbom.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>基于Python的Rclone Crypt储存解密</title>
+    <link>https://ftbom.github.io/rclone_decrypt_by_python/</link>
+    <pubDate>Tue, 25 Jul 2023 15:36:18 &#43;0800</pubDate><author>
+        <name>Ftbom</name>
+    </author><guid>https://ftbom.github.io/rclone_decrypt_by_python/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+    
+</div>
+<p><a href="https://rclone.org/" target="_blank" rel="noopener noreferrer">Rclone</a>支持将其他储存添加为<a href="https://rclone.org/crypt/" target="_blank" rel="noopener noreferrer">Crypt</a>类型的储存，用于加密存储的文件。</p>
+<p>本文旨在简要介绍Rclone Crypt储存的加密原理，并给出Python实现的解密代码。在本文基础上，编写了rclone加密/解密代码<a href="https://github.com/Ftbom/rclone_crypt_py" target="_blank" rel="noopener noreferrer">rclone_crypt_py</a>。</p>
+<h2 id="加密密码" class="headerLink">
+    <a href="#%e5%8a%a0%e5%af%86%e5%af%86%e7%a0%81" class="header-mark"></a>加密密码</h2><p>rclone加密有两个可设置的密码，分别记作passwd1和passwd2。其中passwd2可不设置，若不设置则使用默认值，默认值为<code>\xA8\x0D\xF4\x3A\x8F\xBD\x03\x08\xA7\xCA\xB8\x3E\x58\x1F\x86\xB1</code></p>
+<p>基于passwd1和passwd2，生成用于文件加密和文件名加密的密钥。生成密钥的算法为<a href="https://en.wikipedia.org/wiki/Scrypt" target="_blank" rel="noopener noreferrer">scrypt</a>，scrypt算法的参数为<code>N=16384, r=8, p=1</code>，生成密钥的长度为80bytes。其中前32bytes用于文件加密，32-64bytes和64bytes之后的数据用于文件名加密。</p>
+<p>通过passwd1和passwd2生成加密密钥的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Protocol.KDF</span> <span class="kn">import</span> <span class="n">scrypt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">KEY_SIZE</span> <span class="o">=</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="c1"># scrypt生成密钥的长度</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEFAULT_SALT</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\xA8\x0D\xF4\x3A\x8F\xBD\x03\x08\xA7\xCA\xB8\x3E\x58\x1F\x86\xB1</span><span class="s2">&#34;</span> <span class="c1"># rclone默认salt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">salt</span> <span class="o">=</span> <span class="n">passwd2</span> <span class="k">if</span> <span class="n">passwd2</span> <span class="k">else</span> <span class="n">DEFAULT_SALT</span>
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="n">scrypt</span><span class="p">(</span><span class="n">passwd</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">KEY_SIZE</span><span class="p">,</span> <span class="mi">16384</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">dataKey</span> <span class="o">=</span> <span class="n">key</span><span class="p">[:</span><span class="mi">32</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">nameKey</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="mi">32</span> <span class="p">:</span> <span class="mi">64</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">nameTweak</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="mi">64</span> <span class="p">:]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="文件加密" class="headerLink">
+    <a href="#%e6%96%87%e4%bb%b6%e5%8a%a0%e5%af%86" class="header-mark"></a>文件加密</h2><p>加密后的文件由两部分组成，文件头和数据块。</p>
+<p>其中文件头分为两部分：</p>
+<ul>
+<li>固定rclone文件头
+<blockquote>
+<p>8 bytes，RCLONE\x00\x00</p>
+</blockquote>
+</li>
+<li>用于数据块解密的Nonce
+<blockquote>
+<p>24 bytes</p>
+</blockquote>
+</li>
+</ul>
+<p>文件头中的Nonce是加密时系统随机生成的，用于初始数据块加密。</p>
+<p>每加密一个数据块，Nonce改变一次，以确保每个数据块的Nonce不同。在rclone的加密算法中，更改Nonce的方法为最左一位byte数字加一。实现代码为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 单byte加1</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">byte_increment</span><span class="p">(</span><span class="n">byte</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">byte</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;byte must be in range(0, 256)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">byte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">byte</span> <span class="o">&lt;</span> <span class="mi">255</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># nonce加1</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">nonce_increment</span><span class="p">(</span><span class="n">nonce</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">nonce_array</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">nonce</span><span class="p">)</span> <span class="c1"># 转为数组</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 加1操作</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nonce</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">digit</span> <span class="o">=</span> <span class="n">nonce_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="n">newDigit</span> <span class="o">=</span> <span class="n">byte_increment</span><span class="p">(</span><span class="n">digit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">nonce_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">newDigit</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">newDigit</span> <span class="o">&gt;=</span> <span class="n">digit</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">nonce_array</span><span class="p">)</span> <span class="c1">#转回bytes</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除了最后一个数据块外，每个数据块包含16 + 64 * 1024bytes数据，其中16bytes是用于验证的数据头，64 * 1024bytes是64 * 1024bytes原始数据加密后得到的数据。</p>
+<p>文件块的加密算法是<a href="https://nacl.cr.yp.to/" target="_blank" rel="noopener noreferrer">Nacl算法</a>。</p>
+<p>使用python实现的解密代码为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">nacl.secret</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">box</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">secret</span><span class="o">.</span><span class="n">SecretBox</span><span class="p">(</span><span class="n">dataKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">file_decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">input_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;input file not found&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;failed to write output file&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 读取头</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="ow">not</span> <span class="n">input_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">FILEMAGIC_SIZE</span><span class="p">)</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;RCLONE</span><span class="se">\x00\x00</span><span class="s1">&#39;</span><span class="p">:</span> <span class="c1"># 标准头</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not encrypted rclone file&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Nonce</span> <span class="o">=</span> <span class="n">input_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">FILENONCE_SIZE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 读取文件块</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 16为头</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 64kb数据</span>
+</span></span><span class="line"><span class="cl">	<span class="n">input_bytes</span> <span class="o">=</span> <span class="n">input_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">BLOCKDATA_SIZE</span> <span class="o">+</span> <span class="n">BLOCKHEADER_SIZE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">input_bytes</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">input_bytes</span><span class="p">,</span> <span class="n">Nonce</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">			<span class="n">Nonce</span> <span class="o">=</span> <span class="n">nonce_increment</span><span class="p">(</span><span class="n">Nonce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">input_bytes</span> <span class="o">=</span> <span class="n">input_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">BLOCKDATA_SIZE</span> <span class="o">+</span> <span class="n">BLOCKHEADER_SIZE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;failed to decrypt file&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">input_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="文件名加密" class="headerLink">
+    <a href="#%e6%96%87%e4%bb%b6%e5%90%8d%e5%8a%a0%e5%af%86" class="header-mark"></a>文件名加密</h2><p>文件名有两种加密方式：</p>
+<ul>
+<li>standard
+<blockquote>
+<ol>
+<li>文件名补全为16bytes的倍数，补全算法为<a href="https://en.wikipedia.org/wiki/PKCS_7" target="_blank" rel="noopener noreferrer">PKCS#7</a></li>
+<li>使用<a href="https://eprint.iacr.org/2003/147.pdf" target="_blank" rel="noopener noreferrer">EME(ECB-Mix-ECB)</a>算法对补全后的文件名进行加密</li>
+</ol>
+<blockquote>
+<p>使用生成的nameKey和nameTweak进行加密</p>
+</blockquote>
+<ol start="3">
+<li>对加密结果进行base32编码</li>
+<li>去除结果中的<code>=</code></li>
+</ol>
+</blockquote>
+</li>
+<li>obfuscate
+<blockquote>
+<p>简单的文件名混淆，每个文件名都有一个对应的混淆距离。加密后的文件名为：<code>&lt;混淆距离&gt;.&lt;混淆后文件名&gt;</code></p>
+</blockquote>
+</li>
+</ul>
+<p>standard解密代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.eme</span> <span class="kn">import</span> <span class="n">Decrypt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">nameKey</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">name_standard_decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">padding_num</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">%</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">	<span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span> <span class="o">+</span> <span class="n">padding_num</span> <span class="o">*</span> <span class="s1">&#39;=&#39;</span> <span class="c1"># 添加padding</span>
+</span></span><span class="line"><span class="cl">	<span class="n">filename</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b32hexdecode</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="c1"># base32解码</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;too short to decrypt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2048</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;too long to decrypt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">unpad</span><span class="p">(</span><span class="n">Decrypt</span><span class="p">(</span><span class="n">cipher</span><span class="p">,</span> <span class="n">nameTweak</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="mi">16</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;pkcs7&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># EME解密</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>obfuscate解密代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">name_obfuscate_decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pos</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not obfuscate encrypted filename&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">num</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">pos</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="s1">&#39;!&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">filename</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dir_</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not obfuscate encrypted filename&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nameKey</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dir_</span> <span class="o">=</span> <span class="n">dir_</span> <span class="o">+</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl">	<span class="n">inQuote</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">	<span class="n">out_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">str_</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">code</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">str_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">inQuote</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span> <span class="o">+</span> <span class="n">str_</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;!&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="n">inQuote</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">code</span> <span class="o">&gt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">code</span> <span class="o">&lt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;9&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="n">thisdir</span> <span class="o">=</span> <span class="p">(</span><span class="n">dir_</span> <span class="o">%</span> <span class="mi">9</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">			<span class="n">newRune</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">code</span> <span class="o">-</span> <span class="s1">&#39;0&#39;</span> <span class="o">-</span> <span class="n">thisdir</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">newRune</span> <span class="o">&lt;</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">				<span class="n">newRune</span> <span class="o">=</span> <span class="n">newRune</span> <span class="o">+</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">newRune</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="p">(</span><span class="n">code</span> <span class="o">&gt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">code</span> <span class="o">&lt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">code</span> <span class="o">&gt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">code</span> <span class="o">&lt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">			<span class="n">thisdir</span> <span class="o">=</span> <span class="n">dir_</span> <span class="o">%</span> <span class="mi">25</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">			<span class="n">pos</span> <span class="o">=</span> <span class="n">code</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">pos</span> <span class="o">&gt;=</span> <span class="mi">26</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl">			<span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">thisdir</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">52</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">pos</span> <span class="o">&gt;=</span> <span class="mi">26</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pos</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">code</span> <span class="o">&gt;=</span> <span class="mh">0xa0</span> <span class="ow">and</span> <span class="n">code</span> <span class="o">&lt;=</span> <span class="mh">0xff</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">thisdir</span> <span class="o">=</span> <span class="p">(</span><span class="n">dir_</span> <span class="o">%</span> <span class="mi">95</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">			<span class="n">newRune</span> <span class="o">=</span> <span class="mh">0xa0</span> <span class="o">+</span> <span class="n">code</span> <span class="o">-</span> <span class="mh">0xa0</span> <span class="o">-</span> <span class="n">thisdir</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">newRune</span> <span class="o">&lt;</span> <span class="mh">0xa0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">newRune</span> <span class="o">=</span> <span class="n">newRune</span> <span class="o">+</span> <span class="mi">96</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">newRune</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">code</span> <span class="o">&gt;=</span> <span class="mh">0x100</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">thisdir</span> <span class="o">=</span> <span class="p">(</span><span class="n">dir_</span> <span class="o">%</span> <span class="mi">127</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">			<span class="n">base</span> <span class="o">=</span> <span class="n">code</span> <span class="o">-</span> <span class="n">code</span> <span class="o">%</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">			<span class="n">newRune</span> <span class="o">=</span> <span class="n">base</span> <span class="o">+</span> <span class="n">code</span> <span class="o">-</span> <span class="n">base</span> <span class="o">-</span> <span class="n">thisdir</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">newRune</span> <span class="o">&lt;</span> <span class="n">base</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">newRune</span> <span class="o">=</span> <span class="n">newRune</span> <span class="o">+</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">newRune</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">out_filename</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item><item>
+    <title>基于Python的Kodi插件开发基础</title>
+    <link>https://ftbom.github.io/kodi_plugin_by_python/</link>
+    <pubDate>Tue, 25 Jul 2023 15:32:51 &#43;0800</pubDate><author>
+        <name>Ftbom</name>
+    </author><guid>https://ftbom.github.io/kodi_plugin_by_python/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+    
+</div>
+<p>Kodi的插件可以与Kodi的GUI进行交互，提供额外的功能，可以分为<code>repository</code>、<code>plugin</code>、<code>script</code>、<code>skin</code>和<code>resource</code>5类。Kodi的插件可以使用Python或C++进行开发，这里介绍使用Python开发<code>plugin</code>类型插件的基础知识。</p>
+<h2 id="插件命名规则" class="headerLink">
+    <a href="#%e6%8f%92%e4%bb%b6%e5%91%bd%e5%90%8d%e8%a7%84%e5%88%99" class="header-mark"></a>插件命名规则</h2><p>插件命名规则为：<code>&lt;addon-type&gt;[.&lt;media-type&gt;].&lt;your-plugin-name&gt;</code></p>
+<ul>
+<li>addon-type：插件类型</li>
+<li>media-type：插件提供的媒体类型</li>
+<li>your-plugin-name：插件名称</li>
+</ul>
+<p>命名示例：plugin.video.videoscrapers</p>
+<h2 id="插件文件结构" class="headerLink">
+    <a href="#%e6%8f%92%e4%bb%b6%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84" class="header-mark"></a>插件文件结构</h2><p>Kodi中每个插件都有一个独立的文件夹，在这个文件夹包含插件代码、资源文件和插件信息文件，这个文件夹的名称应该和插件名相同。插件的文件结构一般如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">addon.py
+</span></span><span class="line"><span class="cl">addon.xml
+</span></span><span class="line"><span class="cl">LICENSE.txt
+</span></span><span class="line"><span class="cl">resources/
+</span></span><span class="line"><span class="cl">  settings.xml
+</span></span><span class="line"><span class="cl">  language/
+</span></span><span class="line"><span class="cl">  lib/
+</span></span><span class="line"><span class="cl">  data/
+</span></span><span class="line"><span class="cl">  media/
+</span></span><span class="line"><span class="cl">  fanart.jpg (can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  icon.png (can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  banner.jpg (optional - can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  clearlogo.png (optional - can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  screenshot-1.jpg (optional - can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  screenshot-2.jpg (optional - can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  screenshot-3.jpg (optional - can be placed anywhere in the addon directory)
+</span></span><span class="line"><span class="cl">  screenshot-4.jpg (optional - can be placed anywhere in the addon directory)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>addon.py
+<blockquote>
+<p>插件的程序入口</p>
+</blockquote>
+</li>
+<li>addon.xml
+<blockquote>
+<p>定义插件信息及依赖项等</p>
+</blockquote>
+</li>
+<li>resources
+<blockquote>
+<p>包含资源文件和代码</p>
+</blockquote>
+</li>
+<li>resources/settings.xml
+<blockquote>
+<p>包含插件的设置项</p>
+</blockquote>
+</li>
+<li>resources/lib
+<blockquote>
+<p>一般包含插件的代码</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="addonxml" class="headerLink">
+    <a href="#addonxml" class="header-mark"></a>addon.xml</h3><p>addon.xml文件示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;addon</span> <span class="na">id=</span><span class="s">&#34;plugin.video.videoscrapers&#34;</span> <span class="na">name=</span><span class="s">&#34;Video Scrapers&#34;</span> <span class="na">version=</span><span class="s">&#34;1.2.2&#34;</span> <span class="na">provider-name=</span><span class="s">&#34;Ftbom&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;requires&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;import</span> <span class="na">addon=</span><span class="s">&#34;xbmc.python&#34;</span> <span class="na">version=</span><span class="s">&#34;3.0.0&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;import</span> <span class="na">addon=</span><span class="s">&#34;script.module.requests&#34;</span> <span class="na">version=</span><span class="s">&#34;2.12.4&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;import</span> <span class="na">addon=</span><span class="s">&#34;script.module.beautifulsoup4&#34;</span> <span class="na">version=</span><span class="s">&#34;4.3.2&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;import</span> <span class="na">addon=</span><span class="s">&#34;script.module.resolveurl&#34;</span> <span class="na">version=</span><span class="s">&#34;5.0.00&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;import</span> <span class="na">addon=</span><span class="s">&#34;script.module.cloudscraper&#34;</span> <span class="na">version=</span><span class="s">&#34;1.2.60&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/requires&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;extension</span> <span class="na">point=</span><span class="s">&#34;xbmc.python.pluginsource&#34;</span> <span class="na">library=</span><span class="s">&#34;addon.py&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;provides&gt;</span>video<span class="nt">&lt;/provides&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/extension&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;extension</span> <span class="na">point=</span><span class="s">&#34;xbmc.addon.metadata&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;platform&gt;</span>all<span class="nt">&lt;/platform&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;summary</span> <span class="na">lang=</span><span class="s">&#34;en&#34;</span><span class="nt">&gt;</span>Video Scrapers<span class="nt">&lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;summary</span> <span class="na">lang=</span><span class="s">&#34;zh_CN&#34;</span><span class="nt">&gt;</span>视频聚合<span class="nt">&lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&#34;en&#34;</span><span class="nt">&gt;</span>Support scrape videos from multiple websites by simple plugins<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&#34;zh_CN&#34;</span><span class="nt">&gt;</span>通过插件从多个网站爬取视频<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;license&gt;</span>GNU GPLv2<span class="nt">&lt;/license&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;email&gt;</span>lz490070@gmail.com<span class="nt">&lt;/email&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;assets&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;icon&gt;</span>resources/icon.png<span class="nt">&lt;/icon&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;fanart&gt;</span>resources/fanart.png<span class="nt">&lt;/fanart&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/assets&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/extension&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/addon&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>addon
+<blockquote>
+<p>id：插件名
+name：在Kodi中的显示名称
+version：版本号
+provider-name：作者名称</p>
+</blockquote>
+</li>
+<li>requires定义插件依赖项
+<blockquote>
+<p>格式：<code>&lt;import addon=&quot;xbmc.python&quot; version=&quot;3.0.0&quot;/&gt;</code></p>
+</blockquote>
+</li>
+<li>extension &gt; <code>point=&quot;xbmc.python.pluginsource&quot;</code>
+<blockquote>
+<p>library：代码入口的文件名
+<code>&lt;provides&gt;video&lt;/provides&gt;</code>：插件提供的媒体类型</p>
+</blockquote>
+</li>
+<li>extension &gt; <code>point=&quot;xbmc.addon.metadata&quot;</code>：定义插件信息
+<blockquote>
+<p>platform：适用平台
+summary：插件简介，通过lang设置对应语言
+description：插件介绍，通过lang设置对应语言
+license：插件授权
+email：作者邮箱
+assets：定义插件图标、背景图和截图</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="settingsxml" class="headerLink">
+    <a href="#settingsxml" class="header-mark"></a>settings.xml</h3><p>在settings.xml中可定义插件的设置项，包括设置项类型、id、显示名称、默认值</p>
+<p>支持的<a href="https://kodi.wiki/view/Add-on_settings#Elements" target="_blank" rel="noopener noreferrer">设置项类型</a>有：</p>
+<ul>
+<li>分隔符</li>
+<li>文本输入框</li>
+<li>数字输入</li>
+<li>时间和日期输入框</li>
+<li>开关</li>
+<li>选择框</li>
+<li>滑块</li>
+<li>滑动转盘</li>
+<li>文件等浏览框</li>
+<li>可执行按钮</li>
+</ul>
+<p>示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;settings&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;category</span> <span class="na">label=</span><span class="s">&#34;Scrape Web API&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;scrapingant&#34;</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">label=</span><span class="s">&#34;Scrapingant API&#34;</span> <span class="na">default=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;scrapingbee&#34;</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">label=</span><span class="s">&#34;Scrapingbee API&#34;</span> <span class="na">default=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;zenscrape&#34;</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">label=</span><span class="s">&#34;Zenscrape API&#34;</span> <span class="na">default=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;scraperapi&#34;</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">label=</span><span class="s">&#34;Scraperapi API&#34;</span> <span class="na">default=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;api-select&#34;</span> <span class="na">type=</span><span class="s">&#34;select&#34;</span> <span class="na">label=</span><span class="s">&#34;选择API&#34;</span> <span class="na">values=</span><span class="s">&#34;scrapingant|scrapingbee|zenscrape|scraperapi&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/category&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;category</span> <span class="na">label=</span><span class="s">&#34;樱花动漫&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;yhdm&#34;</span> <span class="na">type=</span><span class="s">&#34;bool&#34;</span> <span class="na">label=</span><span class="s">&#34;启用&#34;</span> <span class="na">default=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;setting</span> <span class="na">id=</span><span class="s">&#34;yhdm-url&#34;</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">label=</span><span class="s">&#34;域名&#34;</span> <span class="na">default=</span><span class="s">&#34;http://www.yinghuacd.com&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/category&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/settings&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="程序代码编写" class="headerLink">
+    <a href="#%e7%a8%8b%e5%ba%8f%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="header-mark"></a>程序代码编写</h2><p>在代码开发时，可以安装<a href="https://github.com/romanvm/Kodistubs" target="_blank" rel="noopener noreferrer">Kodistubs</a>来辅助开发，提供代码提示。</p>
+<p>Kodi中通过url来调用本插件和其他插件的功能，url的一般格式为：<code>plugin_baseurl?action=list_sources&amp;xxx=xxx</code></p>
+<ul>
+<li>plugin_baseurl用于指定插件</li>
+<li>url的params用于指定调用的函数和传递给函数的参数</li>
+</ul>
+<h3 id="文本格式化" class="headerLink">
+    <a href="#%e6%96%87%e6%9c%ac%e6%a0%bc%e5%bc%8f%e5%8c%96" class="header-mark"></a>文本格式化</h3><p>Kodi显示的字符支持格式化，通过在字符串的前后添加字符块来实现<a href="https://kodi.wiki/view/Label_Formatting" target="_blank" rel="noopener noreferrer">文本格式化</a></p>
+<h3 id="可播放链接" class="headerLink">
+    <a href="#%e5%8f%af%e6%92%ad%e6%94%be%e9%93%be%e6%8e%a5" class="header-mark"></a>可播放链接</h3><p>Kodi可以在播放链接中添加headers等信息，格式如下：</p>
+<p><code>http[s]://[username[:password]@]host[:port]/directory/file?a=b&amp;c=d|option1=value1&amp;option2=value2</code></p>
+<h3 id="插件初始化" class="headerLink">
+    <a href="#%e6%8f%92%e4%bb%b6%e5%88%9d%e5%a7%8b%e5%8c%96" class="header-mark"></a>插件初始化</h3><p>在代码中通过sys来接收Kodi传递给插件的参数，参数包括三部分：</p>
+<ul>
+<li><code>__url__</code>
+<blockquote>
+<p>插件对应的基础url，<code>__url__ = sys.argv[0]</code></p>
+</blockquote>
+</li>
+<li><code>__handle__</code>
+<blockquote>
+<p>插件的handle，<code>__handle__ = int(sys.argv[1])</code></p>
+</blockquote>
+</li>
+<li><code>__param__</code>
+<blockquote>
+<p>插件的params，<code>__param__ = sys.argv[2]</code></p>
+</blockquote>
+</li>
+</ul>
+<p>插件初始化的代码一般为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">xbmcplugin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#插件信息</span>
+</span></span><span class="line"><span class="cl"><span class="n">__url__</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">__handle__</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">xbmcplugin</span><span class="o">.</span><span class="n">setContent</span><span class="p">(</span><span class="n">__handle__</span><span class="p">,</span> <span class="s1">&#39;movies&#39;</span><span class="p">)</span> <span class="c1">#设置插件内容的类型</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="处理params" class="headerLink">
+    <a href="#%e5%a4%84%e7%90%86params" class="header-mark"></a>处理params</h3><p>在插件的入口代码中需要处理接收到的params，来执行相应的功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">parse_qsl</span><span class="p">,</span> <span class="n">quote</span><span class="p">,</span> <span class="n">unquote</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">routes</span><span class="p">(</span><span class="n">paramString</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">paramString</span><span class="p">[</span><span class="mi">1</span> <span class="p">:]))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">action</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;list_indexs&#39;</span><span class="p">:</span> <span class="c1">#列出类别</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list_indexs</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;list_videos&#39;</span><span class="p">:</span> <span class="c1">#列出指定类别下条目</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list_videos</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;list_plays&#39;</span><span class="p">:</span> <span class="c1">#列出集</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list_plays</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;list_sources&#39;</span><span class="p">:</span> <span class="c1">#列出播放链接</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list_sources</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="n">unquote</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;cover&#39;</span><span class="p">]),</span> <span class="n">unquote</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;list_search_results&#39;</span><span class="p">:</span> <span class="c1">#列出搜索结果</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="s1">&#39;query&#39;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">list_search_results</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]))</span> <span class="c1">#用于加载下一页</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">list_search_results</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]))</span> <span class="c1">#用于键盘输入搜索</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;add_favorite&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">add_favorite</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;list_favorite&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list_favorite</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;remove_favorite&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">remove_favorite</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mainMenu</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="添加列表" class="headerLink">
+    <a href="#%e6%b7%bb%e5%8a%a0%e5%88%97%e8%a1%a8" class="header-mark"></a>添加列表</h3><p>在Kodi中添加列表项的代码示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">xbmcgui</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">xbmcplugin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mainMenu</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">menuItems</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">item</span> <span class="o">=</span> <span class="n">xbmcgui</span><span class="o">.</span><span class="n">ListItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;[COLOR red]Test[/COLOR]&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">__url__</span><span class="si">}</span><span class="s1">?action=xxx&#39;</span> <span class="c1">#action url</span>
+</span></span><span class="line"><span class="cl">    <span class="n">menuItems</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">url</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xbmcplugin</span><span class="o">.</span><span class="n">addDirectoryItems</span><span class="p">(</span><span class="n">__handle__</span><span class="p">,</span> <span class="n">menuItems</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">menuItems</span><span class="p">))</span> <span class="c1">#添加条目</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xbmcplugin</span><span class="o">.</span><span class="n">addSortMethod</span><span class="p">(</span><span class="n">__handle__</span><span class="p">,</span> <span class="n">xbmcplugin</span><span class="o">.</span><span class="n">SORT_METHOD_NONE</span><span class="p">)</span> <span class="c1">#不排序</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xbmcplugin</span><span class="o">.</span><span class="n">endOfDirectory</span><span class="p">(</span><span class="n">__handle__</span><span class="p">)</span> <span class="c1">#添加结束</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li><code>xbmcgui.ListItem(label = &quot;[COLOR red]Test[/COLOR]&quot;)</code>：列表项，通过label定义显示字符</li>
+<li><code>menuItems.append((url, item, True))</code>：添加列表项，包含列表项对应url，列表项以及是否是文件夹</li>
+<li><code>xbmcplugin.addDirectoryItems(__handle__, menuItems, len(menuItems))</code>：添加列表项列表</li>
+<li><code>xbmcplugin.addSortMethod(__handle__, xbmcplugin.SORT_METHOD_NONE)</code>：设置排序方式</li>
+<li><code>xbmcplugin.endOfDirectory(__handle__)</code>：结束</li>
+</ul>
+</blockquote>
+<p>设置列表项的封面等：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">menuItem</span><span class="o">.</span><span class="n">setArt</span><span class="p">({</span><span class="s1">&#39;poster&#39;</span><span class="p">:</span> <span class="n">cover_url</span><span class="p">})</span> <span class="c1">#设置封面</span>
+</span></span><span class="line"><span class="cl"><span class="n">menuItem</span><span class="o">.</span><span class="n">setInfo</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;plot&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">})</span> <span class="c1">#设置详情</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加列表项的右键菜单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">menuItem</span><span class="o">.</span><span class="n">addContextMenuItems</span><span class="p">([(</span><span class="s2">&#34;Test&#34;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;RunPlugin(</span><span class="si">{</span><span class="n">plugin_url</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加可播放列表项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">menuItem</span><span class="o">.</span><span class="n">setArt</span><span class="p">({</span><span class="s1">&#39;poster&#39;</span><span class="p">:</span> <span class="n">cover_url</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">menuItem</span><span class="o">.</span><span class="n">setInfo</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;genre&#39;</span><span class="p">:</span> <span class="n">genre</span><span class="p">,</span> <span class="s1">&#39;plot&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">menuItems</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">play_url</span><span class="p">,</span> <span class="n">menuItem</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>genre设置视频种类</li>
+<li>play_url为可播放的视频链接</li>
+</ul>
+</blockquote>
+]]></description>
+</item><item>
     <title>借助Zapier将Disqus通知推送到Telegram机器人</title>
     <link>https://ftbom.github.io/get-disqus-notifications-by-telegram-bot/</link>
     <pubDate>Thu, 05 Jan 2023 18:02:08 &#43;0800</pubDate><author>
